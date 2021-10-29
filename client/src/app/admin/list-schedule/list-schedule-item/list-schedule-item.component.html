@@ -1,0 +1,23 @@
+<div class="schedule-item">
+    <p class="year">{{ sched.year }}</p>
+    <p class="month">{{ sched.month }}</p>
+    <p class="day">{{ sched.day }}</p>
+    <p class="opening-time">{{ sched.openingTime }}</p>
+    <p class="closing-time">{{ sched.closingTime }}</p>
+    <div class="schedule-operation">
+        <button (click)="viewSchedule()">View</button>
+        <button (click)="deleteSchedule(sched)">Delete</button>
+    </div>
+    <div class="schedule" [ngClass]="{'hidden': !open}">
+        <div class="schedule-header">
+            <p>Time</p>
+            <p>Persons / Slot</p>
+            <p>Slots</p>
+        </div>
+        <div *ngFor="let schedule of sched.schedule" class="schedule-time" >
+            <p class="time">{{ schedule.time }}</p>
+            <p class="persons">{{ sched.persons }}</p>
+            <p class="slots">{{ schedule.slots }}</p>
+        </div>
+    </div>
+</div>

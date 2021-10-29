@@ -1,0 +1,13 @@
+#add-schedule {
+  .form-container {
+    padding-top: 1em;
+  }
+
+  #add-schedule-form {
+    #time {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+    }
+  }
+}

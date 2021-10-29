@@ -1,0 +1,21 @@
+<div id="view-schedule">
+    <h3>View Schedule</h3>
+    <form id="view-schedule-form" [formGroup]="viewScheduleForm" (ngSubmit)="handleSubmit()">
+        <div class="input-group">
+            <label for="year">Year</label>
+            <select name="year" formControlName="year">
+                <option value="" selected disabled>Select a year</option>
+                <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="month">Month</label>
+            <select name="month" formControlName="month">
+                <option value="" selected disabled>Select a month</option>
+                <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
+            </select>
+        </div>
+        <input type="submit" value="View Schedule" [disabled]="!viewScheduleForm.valid">
+    </form>
+    <app-list-schedule *ngIf="viewSchedule"></app-list-schedule>
+</div>

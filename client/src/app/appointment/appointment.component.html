@@ -1,0 +1,103 @@
+<div id="appointment">
+    <form id="appointment-form" [formGroup]="appointmentForm" (ngSubmit)="handleSubmit()">
+        <div id="step-1" [class.hidden]="step !== 1">
+            <h3>Appointment</h3>
+            <div class="form-field">
+                <div>
+                    <label for="year">Year</label>
+                    <select name="year" id="year" formControlName="year">
+                        <option value="" selected disabled>Select a year</option>
+                        <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="month">Month</label>
+                    <select name="month" id="month" formControlName="month">
+                        <option value="" selected disabled>Select a month</option>
+                        <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="day">Day</label>
+                    <select name="day" id="day" formControlName="day">
+                        <option value="" selected disabled>Select a day</option>
+                        <option *ngFor="let day of dayList" [value]="day">{{ day }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="time">Time</label>
+                    <select name="time" id="time" formControlName="time">
+                        <option value="" selected disabled>Select a time</option>
+                        <option *ngFor="let time of timeList" [value]="time">{{ time }}</option>
+                    </select>
+                </div>
+                <div class="step-control">
+                    <input type="button" value="Home" routerLink="/">
+                    <input type="button" value="Next" (click)="nextStep()" [disabled]="appointmentForm.value.time === ''">
+                </div>
+            </div>
+        </div>
+        <div id="step-2" [class.hidden]="step !== 2">
+            <h3>Personal Details</h3>
+            <div class="form-field">
+                <div>
+                    <label for="first-name">First Name</label>
+                    <input type="text" name="first-name" id="first-name" placeholder="Enter your first name" formControlName="firstName">
+                </div>
+                <div>
+                    <label for="last-name">Last Name</label>
+                    <input type="text" name="last-name" id="last-name" placeholder="Enter your last name" formControlName="lastName">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email address" formControlName="email">
+                </div>
+                <div>
+                    <label for="phone-number">Phone Number</label>
+                    <input type="tel" name="phone-number" id="phone-number" placeholder="Enter your phone number" formControlName="phoneNumber">
+                </div>
+                <div>
+                    <label for="group-size">Group Size <small>(including yourself)</small></label>
+                    <input type="number" name="group-sizer" id="group-size" placeholder="Minimum of 1; Maximum of 20" min="1" max="20" formControlName="groupSize">
+                </div>
+                <div class="step-control">
+                    <input type="button" value="Back" (click)="prevStep()">
+                    <input type="button" value="Next" (click)="nextStep()" [disabled]="!appointmentForm.valid">
+                </div>
+            </div>
+        </div>
+        <div id="step-3" [class.hidden]="step !== 3">
+            <h3>Confirmation</h3>
+            <div class="form-field">
+                <div class="confirm-info">
+                    <p>First Name:</p>
+                    <p class="info"><strong>{{ appointmentForm.value.firstName }}</strong></p>
+                </div>
+                <div class="confirm-info">
+                    <p>Last Name:</p>
+                    <p class="info"><strong>{{ appointmentForm.value.lastName }}</strong></p>
+                </div>
+                <div class="confirm-info">
+                    <p>Email:</p>
+                    <p class="info"><strong>{{ appointmentForm.value.email }}</strong></p>
+                </div>
+                <div class="confirm-info">
+                    <p>Phone Number:</p>
+                    <p class="info"><strong>{{ appointmentForm.value.phoneNumber }}</strong></p>
+                </div>
+                <div class="confirm-info">
+                    <p>Schedule:</p>
+                    <p class="info"><strong>{{ appointmentForm.value.month }} {{ appointmentForm.value.day }}, {{ appointmentForm.value.year }} - {{ appointmentForm.value.time }}</strong></p>
+                </div>
+                <div class="confirm-info">
+                    <p>Group Size <small>(including yourself)</small>:</p>
+                    <p class="info"><strong>{{ appointmentForm.value.groupSize }}</strong></p>
+                </div>
+                <div class="step-control">
+                    <input type="button" value="Back" (click)="prevStep()">
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

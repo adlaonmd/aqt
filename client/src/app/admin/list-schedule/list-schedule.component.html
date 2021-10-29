@@ -1,0 +1,17 @@
+<div *ngIf="scheduleList" id="list-schedule">
+    <div *ngIf="scheduleList.length === 0; else displayList">
+        No schedules found
+    </div>
+    <ng-template #displayList>
+        <div id="list-header">
+            <p>Year</p>
+            <p>Month</p>
+            <p>Day</p>
+            <p>Opening Time</p>
+            <p>Closing Time</p>
+        </div>
+        <div *ngFor="let sched of scheduleList" class="schedule">
+            <app-list-schedule-item [sched]="sched"></app-list-schedule-item>
+        </div>
+    </ng-template>
+</div>

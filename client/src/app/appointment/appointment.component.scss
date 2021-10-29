@@ -1,0 +1,30 @@
+#appointment {
+  padding: 1em;
+
+  #appointment-form {
+    .step-control {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em;
+    }
+
+    .hidden {
+      visibility: hidden;
+      height: 0;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 1em;
+    }
+
+    .confirm-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      .info {
+        text-align: right;
+      }
+    }
+  }
+}
