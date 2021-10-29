@@ -11,7 +11,7 @@ export class AppointmentService {
   constructor(private http: HttpClient) {}
 
   addAppointment(appointment: Appointment): void {
-    this.http.post(APPOINTMENTS_URL, appointment, { responseType: 'text' }).subscribe(
+    this.http.post(APPOINTMENTS_URL, appointment).subscribe(
       (res) => {
         alert(res);
       },

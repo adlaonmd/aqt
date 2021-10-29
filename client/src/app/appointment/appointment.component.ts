@@ -54,7 +54,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    alert(JSON.stringify(this.appointmentForm.value, null, 4));
+    this.scheduleService.addSchedule(this.appointmentForm.value);
   }
 
   getMonthList(): void {
