@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AvailableSchedule } from '../interfaces/available-schedule';
 
 const AVAILABLE_SCHED_URL = 'http://localhost:3000/api/available_schedule';
@@ -18,15 +18,8 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) {}
 
-  addSchedule(schedule: AvailableSchedule): void {
-    this.http.post(AVAILABLE_SCHED_URL, schedule).subscribe(
-      (res) => {
-        alert('Schedule added successfully');
-      },
-      (err) => {
-        alert(err.error);
-      }
-    );
+  addSchedule(schedule: AvailableSchedule): Observable<Object> {
+    return this.http.post(AVAILABLE_SCHED_URL, schedule);
   }
 
   getScheduleByYear(year: string): void {

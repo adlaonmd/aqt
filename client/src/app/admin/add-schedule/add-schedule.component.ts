@@ -120,36 +120,43 @@ export class AddScheduleComponent implements OnInit {
     }
   }
 
-  getAvailableMonths() {
+  getAvailableMonths(): void {
     this.addScheduleForm.get('year')?.valueChanges.subscribe((selectedYear) => {
       this.addScheduleForm.patchValue({ month: '' });
       this.generateMonthList(selectedYear);
     });
   }
 
-  getAvailableDays() {
+  getAvailableDays(): void {
     this.addScheduleForm.get('month')?.valueChanges.subscribe((selectedMonth) => {
       this.addScheduleForm.patchValue({ day: '' });
       this.generateDayList(selectedMonth);
     });
   }
 
-  getAvailableOpeningTimes() {
+  getAvailableOpeningTimes(): void {
     this.addScheduleForm.get('day')?.valueChanges.subscribe((selectedDay) => {
       this.addScheduleForm.patchValue({ openingTime: '' });
       this.generateOpeningTimeList(selectedDay);
     });
   }
 
-  getAvailableClosingTimes() {
+  getAvailableClosingTimes(): void {
     this.addScheduleForm.get('openingTime')?.valueChanges.subscribe((selectedOpeningTime) => {
       this.addScheduleForm.patchValue({ closingTime: '' });
       this.generateClosingTimeList(selectedOpeningTime);
     });
   }
 
-  handleSubmit() {
-    this.scheduleService.addSchedule(this.addScheduleForm.value);
+  handleSubmit(): void {
+    this.scheduleService.addSchedule(this.addScheduleForm.value).subscribe(
+      (res) => {
+        alert('Schedule added successfully');
+      },
+      (err) => {
+        alert(err.error);
+      }
+    );
   }
 
   filterDayList(): void {

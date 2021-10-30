@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ScheduleService } from '../services/schedule.service';
 import { months } from '../months';
 import { AppointmentService } from '../services/appointment.service';
@@ -26,7 +27,9 @@ export class AppointmentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private scheduleService: ScheduleService,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +62,16 @@ export class AppointmentComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    this.appointmentService.addAppointment(this.appointmentForm.value);
+    this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
+      (res: any) => {
+        this.appointmentService.setMessage(res.appointment_id);
+        this.router.navigate(['success'], { relativeTo: this.route });
+      },
+      (err) => {
+        this.appointmentService.setMessage(err.error);
+        this.router.navigate(['error'], { relativeTo: this.route });
+      }
+    );
   }
 
   getMonthList(): void {

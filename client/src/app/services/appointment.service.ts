@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Appointment } from '../interfaces/appointment';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const APPOINTMENTS_URL = 'http://localhost:3000/api/appointments';
 
@@ -9,16 +9,16 @@ const APPOINTMENTS_URL = 'http://localhost:3000/api/appointments';
   providedIn: 'root',
 })
 export class AppointmentService {
-  constructor(private http: HttpClient, private router: Router) {}
+  private message = new BehaviorSubject<string>('');
+  currentMessage = this.message.asObservable();
 
-  addAppointment(appointment: Appointment): void {
-    this.http.post(APPOINTMENTS_URL, appointment).subscribe(
-      (res: any) => {
-        alert('Added appointment successfully - ID: ' + res.appointment_id);
-      },
-      (err) => {
-        alert(err.error);
-      }
-    );
+  constructor(private http: HttpClient) {}
+
+  addAppointment(appointment: Appointment): Observable<Object> {
+    return this.http.post(APPOINTMENTS_URL, appointment);
+  }
+
+  setMessage(message: string): void {
+    this.message.next(message);
   }
 }
