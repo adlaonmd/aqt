@@ -104,7 +104,7 @@ export class AppointmentComponent implements OnInit {
     this.scheduleService.currentDayList.subscribe((schedule) => {
       this.dayList = [];
 
-      if (this.appointmentForm.get('month')?.value !== '') {
+      if (this.appointmentForm.value.month !== '') {
         Object.values(schedule).map((sched: any) => {
           this.dayList.push(sched.day);
         });
@@ -127,7 +127,7 @@ export class AppointmentComponent implements OnInit {
     this.scheduleService.currentTimeList.subscribe((schedule) => {
       this.timeList = [];
 
-      if (this.appointmentForm.get('day')?.value !== '') {
+      if (this.appointmentForm.value.day !== '') {
         Object.values(schedule).map((sched: any) => {
           Object.values(sched.schedule).map((result: any) => {
             this.timeList.push(result.time);

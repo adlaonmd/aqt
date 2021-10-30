@@ -30,6 +30,8 @@ export class AddScheduleComponent implements OnInit {
   addScheduleForm!: FormGroup;
   daysInMonth!: number;
 
+  existingSchedules!: any;
+
   constructor(private fb: FormBuilder, private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {
@@ -48,6 +50,8 @@ export class AddScheduleComponent implements OnInit {
     this.getAvailableDays();
     this.getAvailableOpeningTimes();
     this.getAvailableClosingTimes();
+
+    this.filterDayList();
   }
 
   openScheduleForm(): void {
@@ -56,7 +60,6 @@ export class AddScheduleComponent implements OnInit {
 
   generateMonthList(year: string): void {
     this.monthList = [];
-    this.addScheduleForm.patchValue({ month: '' });
 
     if (year === this.currentYear) {
       for (let i = this.currentMonth; i < months.length; i++) {
@@ -71,17 +74,20 @@ export class AddScheduleComponent implements OnInit {
 
   generateDayList(month: string): void {
     this.dayList = [];
-    this.addScheduleForm.patchValue({ day: '' });
 
     let { year } = this.addScheduleForm.value;
     let selectedMonth = new Date(`${year}-${month}`);
     this.daysInMonth = new Date(parseInt(year), selectedMonth.getMonth() + 1, 0).getDate();
 
+    if (month !== '') {
+      this.scheduleService.getScheduleByYearMonth(year, month);
+    }
+
     if (year === this.currentYear && month === months[this.currentMonth]) {
       for (let i = this.currentDay; i <= this.daysInMonth; i++) {
         this.dayList.push(i.toString());
       }
-    } else if (month !== '') {
+    } else {
       for (let i = 1; i <= this.daysInMonth; i++) {
         this.dayList.push(i.toString());
       }
@@ -90,7 +96,6 @@ export class AddScheduleComponent implements OnInit {
 
   generateOpeningTimeList(day: string): void {
     this.openingTimeList = [];
-    this.addScheduleForm.patchValue({ openingTime: '' });
 
     if (day !== '') {
       for (let i = 0; i < times.length - 1; i++) {
@@ -101,7 +106,6 @@ export class AddScheduleComponent implements OnInit {
 
   generateClosingTimeList(openingTime: string): void {
     this.closingTimeList = [];
-    this.addScheduleForm.patchValue({ closingTime: '' });
 
     if (openingTime !== '') {
       for (let i = 0; i < times.length; i++) {
@@ -118,29 +122,41 @@ export class AddScheduleComponent implements OnInit {
 
   getAvailableMonths() {
     this.addScheduleForm.get('year')?.valueChanges.subscribe((selectedYear) => {
+      this.addScheduleForm.patchValue({ month: '' });
       this.generateMonthList(selectedYear);
     });
   }
 
   getAvailableDays() {
     this.addScheduleForm.get('month')?.valueChanges.subscribe((selectedMonth) => {
+      this.addScheduleForm.patchValue({ day: '' });
       this.generateDayList(selectedMonth);
     });
   }
 
   getAvailableOpeningTimes() {
     this.addScheduleForm.get('day')?.valueChanges.subscribe((selectedDay) => {
+      this.addScheduleForm.patchValue({ openingTime: '' });
       this.generateOpeningTimeList(selectedDay);
     });
   }
 
   getAvailableClosingTimes() {
     this.addScheduleForm.get('openingTime')?.valueChanges.subscribe((selectedOpeningTime) => {
+      this.addScheduleForm.patchValue({ closingTime: '' });
       this.generateClosingTimeList(selectedOpeningTime);
     });
   }
 
   handleSubmit() {
     this.scheduleService.addSchedule(this.addScheduleForm.value);
+  }
+
+  filterDayList(): void {
+    this.scheduleService.currentDayList.subscribe((res: any) => {
+      for (let i = 0; i < res.length; i++) {
+        this.dayList = this.dayList.filter((day) => day !== res[i].day);
+      }
+    });
   }
 }
