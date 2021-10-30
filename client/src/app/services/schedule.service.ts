@@ -21,7 +21,7 @@ export class ScheduleService {
   addSchedule(schedule: AvailableSchedule): void {
     this.http.post(AVAILABLE_SCHED_URL, schedule).subscribe(
       (res) => {
-        alert(res);
+        alert('Schedule added successfully');
       },
       (err) => {
         alert(err.error);
