@@ -62,7 +62,7 @@ const addAppointment = (req, res) => {
                     //Update the newly created document with its appointment_id
                     Appointment.updateOne({ _id: result.id }, { $set: { appointment_id } })
                       .then((result) => {
-                        return res.send(result);
+                        return res.send({ ...result, appointment_id });
                       })
                       .catch((error) => {
                         console.error(error);
