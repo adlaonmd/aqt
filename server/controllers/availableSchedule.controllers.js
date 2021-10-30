@@ -94,7 +94,7 @@ const addAvailableSchedule = (req, res) => {
   ])
     .then((result) => {
       if (result.length !== 0) {
-        return res.status(403).send(JSON.stringify("Schedule already exists in the database"));
+        return res.status(403).json("Schedule already exists in the database");
       }
 
       AvailableSchedule.create({
@@ -107,7 +107,7 @@ const addAvailableSchedule = (req, res) => {
         persons,
       })
         .then((result) => {
-          return res.send(JSON.stringify("Added schedule successfully"));
+          return res.send(result);
         })
         .catch((error) => {
           console.error(error);
@@ -123,7 +123,7 @@ const deleteSchedule = (req, res) => {
 
   AvailableSchedule.deleteOne({ _id })
     .then((result) => {
-      return res.send(JSON.stringify("Deleted schedule successfully"));
+      return res.send(result);
     })
     .catch((error) => {
       console.error(error);

@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const appointmentSchema = new Schema(
   {
+    appointment_id: String,
     year: String,
     month: String,
     day: String,
