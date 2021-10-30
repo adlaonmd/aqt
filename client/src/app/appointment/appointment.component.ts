@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScheduleService } from '../services/schedule.service';
 import { months } from '../months';
+import { AppointmentService } from '../services/appointment.service';
 
 const emailRegex: RegExp =
   /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
@@ -22,7 +23,11 @@ export class AppointmentComponent implements OnInit {
 
   appointmentForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private scheduleService: ScheduleService) {}
+  constructor(
+    private fb: FormBuilder,
+    private scheduleService: ScheduleService,
+    private appointmentService: AppointmentService
+  ) {}
 
   ngOnInit(): void {
     this.appointmentForm = this.fb.group({
@@ -54,7 +59,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    this.scheduleService.addSchedule(this.appointmentForm.value);
+    this.appointmentService.addAppointment(this.appointmentForm.value);
   }
 
   getMonthList(): void {
