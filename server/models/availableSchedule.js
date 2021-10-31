@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const availableScheduleSchema = new Schema(
   {
+    fullDate: String,
     year: String,
     month: String,
     day: String,

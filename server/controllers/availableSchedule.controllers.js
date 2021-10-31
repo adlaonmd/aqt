@@ -81,6 +81,8 @@ const getSchedule = (req, res) => {
 const addAvailableSchedule = (req, res) => {
   const { year, month, day, openingTime, closingTime, timeSpan, slots, persons } = req.body;
 
+  const fullDate = new Date(`${year}/${month}/${day}`).toLocaleDateString("ja-JP");
+
   const schedule = generateSchedule(openingTime, closingTime, timeSpan, slots);
 
   AvailableSchedule.aggregate([
@@ -98,6 +100,7 @@ const addAvailableSchedule = (req, res) => {
       }
 
       AvailableSchedule.create({
+        fullDate,
         year,
         month,
         day,

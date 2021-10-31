@@ -4,6 +4,8 @@ const AvailableSchedule = require("../models/availableSchedule");
 const addAppointment = (req, res) => {
   const { year, month, day, time, firstName, lastName, email, phoneNumber, groupSize } = req.body;
 
+  const fullSchedule = new Date(`${year}/${month}/${day} ${time}`).toLocaleString("ja-JP");
+
   //Check if the user has an existing appointment in the same day
   Appointment.aggregate([
     {
@@ -54,7 +56,7 @@ const addAppointment = (req, res) => {
             )
               .then((result) => {
                 //Add the appointment in the database
-                Appointment.create(req.body)
+                Appointment.create({ ...req.body, fullSchedule })
                   .then((result) => {
                     //Get the last 6 characters of the ID and set it as appointment_id to be easily reference later
                     const appointment_id = result.id.slice(-6).toUpperCase();
