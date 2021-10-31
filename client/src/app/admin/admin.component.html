@@ -1,4 +1,17 @@
-<div id="admin">  
-    <app-add-schedule></app-add-schedule>
-    <app-view-schedule></app-view-schedule>
+<div id="admin">
+    <header>
+        <h1><a routerLink="../admin">CMD</a></h1>
+        <nav>
+            <ul>
+                <li><a routerLink="schedule" routerLinkActive="active-link">Schedule</a></li>
+                <li><a routerLink="appointment" routerLinkActive="active-link">Appointment</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div *ngIf="this.route.children.length === 0">
+            <h2 style="text-align: center">Welcome to CMD Hub</h2>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
 </div>

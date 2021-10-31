@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ScheduleService } from '../../services/schedule.service';
-import { months } from '../../months';
+import { ScheduleService } from 'src/app/services/schedule.service';
+import { months } from '../../../months';
 
 @Component({
   selector: 'app-view-schedule',
   templateUrl: './view-schedule.component.html',
-  styleUrls: ['./view-schedule.component.scss', '../../admin/admin.component.scss'],
+  styleUrls: ['./view-schedule.component.scss', '../schedule.component.scss'],
 })
 export class ViewScheduleComponent implements OnInit {
   currentYear: string = new Date().getFullYear().toString();

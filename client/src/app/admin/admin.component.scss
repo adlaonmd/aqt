@@ -1,8 +1,40 @@
 #admin {
-  padding: 1em;
-}
+  header {
+    background: #3185fc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1em;
 
-form {
-  display: grid;
-  gap: 1em;
+    nav {
+      ul {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+      }
+    }
+
+    a {
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    a:hover {
+      color: #f0eff4;
+    }
+
+    .active-link {
+      border-bottom: 1px solid #fff;
+    }
+
+    .active-link:hover {
+      border-bottom: 1px solid #f0eff4;
+    }
+  }
+
+  .content {
+    padding: 1em;
+  }
 }

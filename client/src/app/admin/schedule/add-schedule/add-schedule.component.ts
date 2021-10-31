@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ScheduleService } from '../../services/schedule.service';
-import { months } from '../../months';
-import { times } from '../../times';
+import { ScheduleService } from 'src/app/services/schedule.service';
+import { months } from '../../../months';
+import { times } from '../../../times';
 
 @Component({
   selector: 'app-add-schedule',
   templateUrl: './add-schedule.component.html',
-  styleUrls: ['./add-schedule.component.scss', '../../admin/admin.component.scss'],
+  styleUrls: ['./add-schedule.component.scss', '../schedule.component.scss'],
 })
 export class AddScheduleComponent implements OnInit {
   open: boolean = false;

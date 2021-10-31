@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -7,19 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  // url?: string;
-  // constructor(private router: Router) {
-  //   router.events.subscribe((event) => {
-  //     if (event instanceof NavigationEnd) {
-  //       this.url = event.url;
-  //     }
-  //   });
-  // }
-  // ngOnInit(): void {
-  //   this.url = this.router.url;
-  // }
-
-  constructor() {}
+  constructor(public route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 }
