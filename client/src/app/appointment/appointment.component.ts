@@ -17,6 +17,9 @@ const phoneRegex: RegExp = /^(09)\d{9}$/gm;
 export class AppointmentComponent implements OnInit {
   step: number = 1;
   currentYear: string = new Date().getFullYear().toString();
+  currentMonth: number = new Date().getMonth();
+  currentDay: number = new Date().getDate();
+  daysInMonth!: number;
   yearList: string[] = [this.currentYear, `${(new Date().getFullYear() + 1).toString()}`];
   monthList!: string[];
   dayList!: string[];
@@ -81,21 +84,26 @@ export class AppointmentComponent implements OnInit {
       this.appointmentForm.patchValue({ time: '' });
       this.dayList = [];
       this.timeList = [];
-      this.scheduleService.getScheduleByYear(selectedYear);
+      this.scheduleService.getScheduleByYear(selectedYear).subscribe((res) => {
+        this.scheduleService.setMonthList(res);
+      });
     });
   }
 
   generateMonthList(): void {
     this.scheduleService.currentMonthList.subscribe((schedule) => {
-      this.monthList = [];
+      let { year } = this.appointmentForm.value;
+      if (year !== '') {
+        this.monthList = [];
 
-      Object.values(schedule).map((sched: any) => {
-        this.monthList.push(sched.month);
-      });
+        Object.values(schedule).map((sched: any) => {
+          this.monthList.push(sched.month);
+        });
 
-      this.monthList.sort(function (a: any, b: any) {
-        return months.indexOf(a) - months.indexOf(b);
-      });
+        this.monthList.sort(function (a: any, b: any) {
+          return months.indexOf(a) - months.indexOf(b);
+        });
+      }
     });
   }
 
@@ -107,19 +115,32 @@ export class AppointmentComponent implements OnInit {
         this.appointmentForm.patchValue({ day: '' });
         this.appointmentForm.patchValue({ time: '' });
         this.timeList = [];
-        this.scheduleService.getScheduleByYearMonth(year, selectedMonth);
+        this.scheduleService.getScheduleByYearMonth(year, selectedMonth).subscribe((res) => {
+          this.scheduleService.setDayList(res);
+        });
       }
     });
   }
 
   generateDayList(): void {
-    this.scheduleService.currentDayList.subscribe((schedule) => {
-      this.dayList = [];
+    this.scheduleService.currentDayList.subscribe((schedule: any) => {
+      let { year, month } = this.appointmentForm.value;
+      if (month !== '') {
+        this.dayList = [];
+        let selectedMonth = new Date(`${year}-${month}`);
+        this.daysInMonth = new Date(parseInt(year), selectedMonth.getMonth() + 1, 0).getDate();
 
-      if (this.appointmentForm.value.month !== '') {
-        Object.values(schedule).map((sched: any) => {
-          this.dayList.push(sched.day);
-        });
+        if (year === this.currentYear && month === months[this.currentMonth]) {
+          for (let i = 0; i < schedule.length; i++) {
+            if (parseInt(schedule[i].day) >= this.currentDay) {
+              this.dayList.push(schedule[i].day);
+            }
+          }
+        } else {
+          for (let i = 0; i < schedule.length; i++) {
+            this.dayList.push(schedule[i].day);
+          }
+        }
       }
     });
   }
@@ -130,21 +151,26 @@ export class AppointmentComponent implements OnInit {
 
       if (month !== '' && selectedDay) {
         this.appointmentForm.patchValue({ time: '' });
-        this.scheduleService.getSchedule(year, month, selectedDay);
+        this.scheduleService.getSchedule(year, month, selectedDay).subscribe((res) => {
+          this.scheduleService.setTimeList(res);
+        });
       }
     });
   }
 
   generateTimeList(): void {
     this.scheduleService.currentTimeList.subscribe((schedule) => {
-      this.timeList = [];
+      let { day } = this.appointmentForm.value;
+      if (day !== '') {
+        this.timeList = [];
 
-      if (this.appointmentForm.value.day !== '') {
-        Object.values(schedule).map((sched: any) => {
-          Object.values(sched.schedule).map((result: any) => {
-            this.timeList.push(result.time);
+        if (this.appointmentForm.value.day !== '') {
+          Object.values(schedule).map((sched: any) => {
+            Object.values(sched.schedule).map((result: any) => {
+              this.timeList.push(result.time);
+            });
           });
-        });
+        }
       }
     });
   }

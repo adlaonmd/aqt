@@ -18,7 +18,9 @@ export class ViewScheduleComponent implements OnInit {
 
   handleSubmit() {
     const { year, month } = this.viewScheduleForm.value;
-    this.scheduleService.getScheduleByYearMonth(year, month);
+    this.scheduleService.getScheduleByYearMonth(year, month).subscribe((res) => {
+      this.scheduleService.setScheduleList(res);
+    });
     this.viewSchedule = true;
   }
 

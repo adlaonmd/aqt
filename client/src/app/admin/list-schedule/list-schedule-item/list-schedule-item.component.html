@@ -8,7 +8,7 @@
         <button (click)="viewSchedule()">View</button>
         <button (click)="deleteSchedule(sched)">Delete</button>
     </div>
-    <div class="schedule" [ngClass]="{'hidden': !open}">
+    <div class="schedule" [class.hidden]="!open">
         <div class="schedule-header">
             <p>Time</p>
             <p>Persons / Slot</p>

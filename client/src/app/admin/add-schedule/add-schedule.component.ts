@@ -48,14 +48,20 @@ export class AddScheduleComponent implements OnInit {
 
     this.getAvailableMonths();
     this.getAvailableDays();
+    this.generateDayList();
     this.getAvailableOpeningTimes();
     this.getAvailableClosingTimes();
-
-    this.filterDayList();
   }
 
   openScheduleForm(): void {
     this.open = !this.open;
+  }
+
+  getAvailableMonths(): void {
+    this.addScheduleForm.get('year')?.valueChanges.subscribe((selectedYear) => {
+      this.addScheduleForm.patchValue({ month: '' });
+      this.generateMonthList(selectedYear);
+    });
   }
 
   generateMonthList(year: string): void {
@@ -72,26 +78,47 @@ export class AddScheduleComponent implements OnInit {
     }
   }
 
-  generateDayList(month: string): void {
-    this.dayList = [];
-
-    let { year } = this.addScheduleForm.value;
-    let selectedMonth = new Date(`${year}-${month}`);
-    this.daysInMonth = new Date(parseInt(year), selectedMonth.getMonth() + 1, 0).getDate();
-
-    if (month !== '') {
-      this.scheduleService.getScheduleByYearMonth(year, month);
-    }
-
-    if (year === this.currentYear && month === months[this.currentMonth]) {
-      for (let i = this.currentDay; i <= this.daysInMonth; i++) {
-        this.dayList.push(i.toString());
+  getAvailableDays(): void {
+    this.addScheduleForm.get('month')?.valueChanges.subscribe((selectedMonth) => {
+      if (selectedMonth !== '') {
+        this.addScheduleForm.patchValue({ day: '' });
+        this.dayList = [];
+        this.scheduleService.getScheduleByYearMonth(this.addScheduleForm.value.year, selectedMonth).subscribe((res) => {
+          this.scheduleService.setDayList(res);
+        });
       }
-    } else {
-      for (let i = 1; i <= this.daysInMonth; i++) {
-        this.dayList.push(i.toString());
+    });
+  }
+
+  generateDayList(): void {
+    this.scheduleService.currentDayList.subscribe((res: any) => {
+      let { year, month } = this.addScheduleForm.value;
+      if (month !== '') {
+        let selectedMonth = new Date(`${year}-${month}`);
+        this.daysInMonth = new Date(parseInt(year), selectedMonth.getMonth() + 1, 0).getDate();
+
+        if (year === this.currentYear && month === months[this.currentMonth]) {
+          for (let i = this.currentDay; i <= this.daysInMonth; i++) {
+            this.dayList.push(i.toString());
+          }
+        } else {
+          for (let i = 1; i <= this.daysInMonth; i++) {
+            this.dayList.push(i.toString());
+          }
+        }
+
+        for (let i = 0; i < res.length; i++) {
+          this.dayList = this.dayList.filter((day) => day !== res[i].day);
+        }
       }
-    }
+    });
+  }
+
+  getAvailableOpeningTimes(): void {
+    this.addScheduleForm.get('day')?.valueChanges.subscribe((selectedDay) => {
+      this.addScheduleForm.patchValue({ openingTime: '' });
+      this.generateOpeningTimeList(selectedDay);
+    });
   }
 
   generateOpeningTimeList(day: string): void {
@@ -102,6 +129,13 @@ export class AddScheduleComponent implements OnInit {
         this.openingTimeList.push(times[i]);
       }
     }
+  }
+
+  getAvailableClosingTimes(): void {
+    this.addScheduleForm.get('openingTime')?.valueChanges.subscribe((selectedOpeningTime) => {
+      this.addScheduleForm.patchValue({ closingTime: '' });
+      this.generateClosingTimeList(selectedOpeningTime);
+    });
   }
 
   generateClosingTimeList(openingTime: string): void {
@@ -120,34 +154,6 @@ export class AddScheduleComponent implements OnInit {
     }
   }
 
-  getAvailableMonths(): void {
-    this.addScheduleForm.get('year')?.valueChanges.subscribe((selectedYear) => {
-      this.addScheduleForm.patchValue({ month: '' });
-      this.generateMonthList(selectedYear);
-    });
-  }
-
-  getAvailableDays(): void {
-    this.addScheduleForm.get('month')?.valueChanges.subscribe((selectedMonth) => {
-      this.addScheduleForm.patchValue({ day: '' });
-      this.generateDayList(selectedMonth);
-    });
-  }
-
-  getAvailableOpeningTimes(): void {
-    this.addScheduleForm.get('day')?.valueChanges.subscribe((selectedDay) => {
-      this.addScheduleForm.patchValue({ openingTime: '' });
-      this.generateOpeningTimeList(selectedDay);
-    });
-  }
-
-  getAvailableClosingTimes(): void {
-    this.addScheduleForm.get('openingTime')?.valueChanges.subscribe((selectedOpeningTime) => {
-      this.addScheduleForm.patchValue({ closingTime: '' });
-      this.generateClosingTimeList(selectedOpeningTime);
-    });
-  }
-
   handleSubmit(): void {
     this.scheduleService.addSchedule(this.addScheduleForm.value).subscribe(
       (res) => {
@@ -157,13 +163,5 @@ export class AddScheduleComponent implements OnInit {
         alert(err.error);
       }
     );
-  }
-
-  filterDayList(): void {
-    this.scheduleService.currentDayList.subscribe((res: any) => {
-      for (let i = 0; i < res.length; i++) {
-        this.dayList = this.dayList.filter((day) => day !== res[i].day);
-      }
-    });
   }
 }

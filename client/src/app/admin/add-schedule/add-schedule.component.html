@@ -1,6 +1,6 @@
 <div id="add-schedule">
     <button (click)="openScheduleForm()">Add Schedule</button>
-    <div *ngIf="open" class="form-container">
+    <div [class.hidden]="!open" class="form-container">
         <h3>Add Schedule</h3>
         <form id="add-schedule-form" [formGroup]="addScheduleForm" (ngSubmit)="handleSubmit()">
             <div>

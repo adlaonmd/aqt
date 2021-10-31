@@ -9,35 +9,47 @@ const AVAILABLE_SCHED_URL = 'http://localhost:3000/api/available_schedule';
   providedIn: 'root',
 })
 export class ScheduleService {
+  private scheduleList = new BehaviorSubject<Object>([]);
   private monthList = new BehaviorSubject<Object>([]);
   private dayList = new BehaviorSubject<Object>([]);
   private timeList = new BehaviorSubject<Object>([]);
+  currentScheduleList = this.scheduleList.asObservable();
   currentMonthList = this.monthList.asObservable();
   currentDayList = this.dayList.asObservable();
   currentTimeList = this.timeList.asObservable();
 
   constructor(private http: HttpClient) {}
 
+  setScheduleList(list: Object): void {
+    this.scheduleList.next(list);
+  }
+
+  setMonthList(list: Object): void {
+    this.monthList.next(list);
+  }
+
+  setDayList(list: Object): void {
+    this.dayList.next(list);
+  }
+
+  setTimeList(list: Object): void {
+    this.timeList.next(list);
+  }
+
   addSchedule(schedule: AvailableSchedule): Observable<Object> {
     return this.http.post(AVAILABLE_SCHED_URL, schedule);
   }
 
-  getScheduleByYear(year: string): void {
-    this.http.get(`${AVAILABLE_SCHED_URL}/${year}`).subscribe((res) => {
-      this.monthList.next(res);
-    });
+  getScheduleByYear(year: string): Observable<Object> {
+    return this.http.get(`${AVAILABLE_SCHED_URL}/${year}`);
   }
 
-  getScheduleByYearMonth(year: string, month: string): void {
-    this.http.get(`${AVAILABLE_SCHED_URL}/${year}/${month}`).subscribe((res) => {
-      this.dayList.next(res);
-    });
+  getScheduleByYearMonth(year: string, month: string): Observable<Object> {
+    return this.http.get(`${AVAILABLE_SCHED_URL}/${year}/${month}`);
   }
 
-  getSchedule(year: string, month: string, day: string): void {
-    this.http.get(`${AVAILABLE_SCHED_URL}/${year}/${month}/${day}`).subscribe((res) => {
-      this.timeList.next(res);
-    });
+  getSchedule(year: string, month: string, day: string): Observable<Object> {
+    return this.http.get(`${AVAILABLE_SCHED_URL}/${year}/${month}/${day}`);
   }
 
   updateSchedule(): void {
@@ -45,7 +57,7 @@ export class ScheduleService {
   }
 
   deleteSchedule(schedule: AvailableSchedule): void {
-    this.http.delete(`${AVAILABLE_SCHED_URL}/${schedule._id}`).subscribe((res) => {
+    this.http.delete(`${AVAILABLE_SCHED_URL}/${schedule._id}`).subscribe(() => {
       this.getScheduleByYearMonth(schedule.year, schedule.month);
     });
   }

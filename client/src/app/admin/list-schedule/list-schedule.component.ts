@@ -12,8 +12,8 @@ export class ListScheduleComponent implements OnInit {
   constructor(private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {
-    this.scheduleService.currentDayList.subscribe((schedule) => {
-      this.scheduleList = schedule;
+    this.scheduleService.currentScheduleList.subscribe((res) => {
+      this.scheduleList = res;
     });
   }
 }

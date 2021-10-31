@@ -1,6 +1,7 @@
 #add-schedule {
-  .form-container {
-    padding-top: 1em;
+  .hidden {
+    visibility: hidden;
+    height: 0;
   }
 
   #add-schedule-form {
