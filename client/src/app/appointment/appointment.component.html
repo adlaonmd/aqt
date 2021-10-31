@@ -28,7 +28,7 @@
                     <label for="time">Time</label>
                     <select name="time" id="time" formControlName="time">
                         <option value="" selected disabled>Select a time</option>
-                        <option *ngFor="let time of timeList" [value]="time">{{ time }}</option>
+                        <option *ngFor="let val of timeSlotList" [value]="val.time">{{ val.time }} - Slots: {{ val.slots }}</option>
                     </select>
                 </div>
                 <div class="step-control">
@@ -57,7 +57,7 @@
                     <input type="tel" name="phone-number" id="phone-number" placeholder="Enter your phone number" formControlName="phoneNumber">
                 </div>
                 <div>
-                    <label for="group-size">Group Size <small>(including yourself)</small></label>
+                    <label for="group-size">Group Size <small>(including yourself | 1 slot = {{ slotsPerPerson }} {{ slotsPerPerson > 1 ? "persons" : "person" }})</small></label>
                     <input type="number" name="group-sizer" id="group-size" placeholder="Minimum of 1; Maximum of 20" min="1" max="20" formControlName="groupSize">
                 </div>
                 <div class="step-control">

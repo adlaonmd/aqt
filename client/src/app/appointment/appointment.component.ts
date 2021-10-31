@@ -23,7 +23,8 @@ export class AppointmentComponent implements OnInit {
   yearList: string[] = [this.currentYear, `${(new Date().getFullYear() + 1).toString()}`];
   monthList!: string[];
   dayList!: string[];
-  timeList!: string[];
+  timeSlotList!: any;
+  slotsPerPerson!: number;
 
   appointmentForm!: FormGroup;
 
@@ -83,7 +84,7 @@ export class AppointmentComponent implements OnInit {
       this.appointmentForm.patchValue({ day: '' });
       this.appointmentForm.patchValue({ time: '' });
       this.dayList = [];
-      this.timeList = [];
+      this.timeSlotList = [];
       this.scheduleService.getScheduleByYear(selectedYear).subscribe((res) => {
         this.scheduleService.setMonthList(res);
       });
@@ -114,7 +115,7 @@ export class AppointmentComponent implements OnInit {
       if (year !== '' && selectedMonth) {
         this.appointmentForm.patchValue({ day: '' });
         this.appointmentForm.patchValue({ time: '' });
-        this.timeList = [];
+        this.timeSlotList = [];
         this.scheduleService.getScheduleByYearMonth(year, selectedMonth).subscribe((res) => {
           this.scheduleService.setDayList(res);
         });
@@ -151,7 +152,8 @@ export class AppointmentComponent implements OnInit {
 
       if (month !== '' && selectedDay) {
         this.appointmentForm.patchValue({ time: '' });
-        this.scheduleService.getSchedule(year, month, selectedDay).subscribe((res) => {
+        this.scheduleService.getSchedule(year, month, selectedDay).subscribe((res: any) => {
+          this.slotsPerPerson = res[0].persons;
           this.scheduleService.setTimeList(res);
         });
       }
@@ -162,13 +164,13 @@ export class AppointmentComponent implements OnInit {
     this.scheduleService.currentTimeList.subscribe((schedule) => {
       let { day } = this.appointmentForm.value;
       if (day !== '') {
-        this.timeList = [];
+        this.timeSlotList = [];
 
         if (day !== '') {
           Object.values(schedule).map((sched: any) => {
             Object.values(sched.schedule).map((result: any) => {
               if (result.slots !== 0) {
-                this.timeList.push(result.time);
+                this.timeSlotList.push({ time: result.time, slots: result.slots });
               }
             });
           });
