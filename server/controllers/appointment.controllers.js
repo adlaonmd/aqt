@@ -82,6 +82,8 @@ const addAppointment = (req, res) => {
               break;
             }
           }
+
+          console.error("You shouldn't be here...");
         })
         .catch((error) => {
           console.error(error);
