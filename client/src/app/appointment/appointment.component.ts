@@ -164,10 +164,12 @@ export class AppointmentComponent implements OnInit {
       if (day !== '') {
         this.timeList = [];
 
-        if (this.appointmentForm.value.day !== '') {
+        if (day !== '') {
           Object.values(schedule).map((sched: any) => {
             Object.values(sched.schedule).map((result: any) => {
-              this.timeList.push(result.time);
+              if (result.slots !== 0) {
+                this.timeList.push(result.time);
+              }
             });
           });
         }
