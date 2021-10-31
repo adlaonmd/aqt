@@ -78,8 +78,6 @@ const addAppointment = (req, res) => {
                 .catch((error) => {
                   console.error(error);
                 });
-
-              break;
             }
           }
 
