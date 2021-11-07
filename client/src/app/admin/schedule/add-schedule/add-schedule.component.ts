@@ -10,7 +10,6 @@ import { times } from '../../../times';
   styleUrls: ['./add-schedule.component.scss', '../schedule.component.scss'],
 })
 export class AddScheduleComponent implements OnInit {
-  open: boolean = false;
   currentYear: string = new Date().getFullYear().toString();
   currentMonth: number = new Date().getMonth();
   currentDay: number = new Date().getDate();
@@ -51,10 +50,6 @@ export class AddScheduleComponent implements OnInit {
     this.generateDayList();
     this.getAvailableOpeningTimes();
     this.getAvailableClosingTimes();
-  }
-
-  openScheduleForm(): void {
-    this.open = !this.open;
   }
 
   getAvailableMonths(): void {

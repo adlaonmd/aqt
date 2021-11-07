@@ -9,12 +9,18 @@ const APPOINTMENTS_URL = 'http://localhost:3000/api/appointments';
   providedIn: 'root',
 })
 export class AppointmentService {
+  private submittedStatus = false;
   private message = new BehaviorSubject<string>('');
   currentMessage = this.message.asObservable();
 
   constructor(private http: HttpClient) {}
 
+  get isAppointmentSubmitted() {
+    return this.submittedStatus;
+  }
+
   addAppointment(appointment: Appointment): Observable<Object> {
+    this.submittedStatus = true;
     return this.http.post(APPOINTMENTS_URL, appointment);
   }
 

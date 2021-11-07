@@ -25,6 +25,7 @@ export class AppointmentComponent implements OnInit {
   dayList!: string[];
   timeSlotList!: any;
   slotsPerPerson!: number;
+  appointmentId!: string;
 
   appointmentForm!: FormGroup;
 
@@ -68,7 +69,8 @@ export class AppointmentComponent implements OnInit {
   handleSubmit(): void {
     this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
       (res: any) => {
-        this.appointmentService.setMessage(res.appointment_id);
+        this.appointmentId = res.appointment_id;
+        this.appointmentService.setMessage(this.appointmentId);
         this.router.navigate(['success'], { relativeTo: this.route });
       },
       (err) => {
@@ -177,5 +179,9 @@ export class AppointmentComponent implements OnInit {
         }
       }
     });
+  }
+
+  cancelAppointment(): void {
+    console.log(`Cancelling Appointment ID: ${this.appointmentId} `);
   }
 }

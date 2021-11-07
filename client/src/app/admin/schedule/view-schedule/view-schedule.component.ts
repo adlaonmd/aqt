@@ -16,14 +16,6 @@ export class ViewScheduleComponent implements OnInit {
   viewSchedule: boolean = false;
   viewScheduleForm!: FormGroup;
 
-  handleSubmit() {
-    const { year, month } = this.viewScheduleForm.value;
-    this.scheduleService.getScheduleByYearMonth(year, month).subscribe((res) => {
-      this.scheduleService.setScheduleList(res);
-    });
-    this.viewSchedule = true;
-  }
-
   constructor(private fb: FormBuilder, private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {
@@ -31,5 +23,13 @@ export class ViewScheduleComponent implements OnInit {
       year: ['', Validators.required],
       month: ['', Validators.required],
     });
+  }
+
+  handleSubmit() {
+    const { year, month } = this.viewScheduleForm.value;
+    this.scheduleService.getScheduleByYearMonth(year, month).subscribe((res) => {
+      this.scheduleService.setScheduleList(res);
+    });
+    this.viewSchedule = true;
   }
 }

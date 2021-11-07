@@ -1,4 +1,8 @@
-<div>
-    <app-add-schedule></app-add-schedule>
-    <app-view-schedule></app-view-schedule>
+<div id="schedule-container">
+    <div>
+        <button (click)="viewTab('view')">View</button>
+        <button (click)="viewTab('add')">Add</button>
+    </div>
+    <app-add-schedule *ngIf="currentTab === 'add'"></app-add-schedule>
+    <app-view-schedule *ngIf="currentTab === 'view'"></app-view-schedule>
 </div>

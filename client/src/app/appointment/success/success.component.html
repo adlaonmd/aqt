@@ -1,3 +1,10 @@
-<p>Appointment set!</p>
-<p>ID: {{ appointment_id }}</p>
-<button routerLink="/">Home</button>
+<div id="success">
+    <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
+    <div id="info">
+        <h2>Your appointment is set!</h2>
+        <p id="message">Appointment ID: {{ appointment_id }}</p>
+        <p id="note">We will send you an SMS/email notification 30 minutes before your appointment</p>
+        <button routerLink="/">Home</button>
+        <button class="cancel">Cancel Appointment</button>
+    </div>
+</div>

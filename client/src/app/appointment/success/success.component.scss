@@ -1,0 +1,63 @@
+#success {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  background: #fff;
+
+  #logo {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  #info {
+    background: #afffb9;
+    width: 100%;
+    max-width: 600px;
+    padding: 2em;
+    box-shadow: 0.125em 0.125em 0.5em rgba(40, 180, 60, 50%);
+    border: 0.0625em solid #28b43c;
+    text-align: center;
+
+    h2 {
+      color: #28b43c;
+    }
+
+    #message {
+      font-weight: 700;
+      margin-top: 0.5em;
+    }
+
+    #note {
+      width: 100%;
+      max-width: 22.5em;
+      margin: auto;
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    button {
+      border: none;
+      margin-top: 1em;
+      background: #314a9a;
+      width: 100%;
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 1rem;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      transition: 200ms;
+    }
+
+    button:hover {
+      background: #000;
+    }
+
+    .cancel {
+      background: #e52321;
+    }
+  }
+}
