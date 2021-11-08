@@ -71,10 +71,12 @@ export class AppointmentComponent implements OnInit {
       (res: any) => {
         this.appointmentId = res.appointment_id;
         this.appointmentService.setMessage(this.appointmentId);
+        this.appointmentService.setSubmittedStatus(true);
         this.router.navigate(['success'], { relativeTo: this.route });
       },
       (err) => {
         this.appointmentService.setMessage(err.error);
+        this.appointmentService.setSubmittedStatus(true);
         this.router.navigate(['error'], { relativeTo: this.route });
       }
     );
@@ -179,9 +181,5 @@ export class AppointmentComponent implements OnInit {
         }
       }
     });
-  }
-
-  cancelAppointment(): void {
-    console.log(`Cancelling Appointment ID: ${this.appointmentId} `);
   }
 }

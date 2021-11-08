@@ -19,12 +19,19 @@ export class AppointmentService {
     return this.submittedStatus;
   }
 
+  setMessage(message: string): void {
+    this.message.next(message);
+  }
+
+  setSubmittedStatus(value: boolean): void {
+    this.submittedStatus = value;
+  }
+
   addAppointment(appointment: Appointment): Observable<Object> {
-    this.submittedStatus = true;
     return this.http.post(APPOINTMENTS_URL, appointment);
   }
 
-  setMessage(message: string): void {
-    this.message.next(message);
+  deleteAppointment(appointment_id: string): Observable<Object> {
+    return this.http.delete(`${APPOINTMENTS_URL}/${appointment_id}`);
   }
 }

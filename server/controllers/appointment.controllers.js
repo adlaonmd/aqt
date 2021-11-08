@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const Appointment = require("../models/appointment");
 const AvailableSchedule = require("../models/availableSchedule");
 
@@ -92,4 +93,32 @@ const addAppointment = (req, res) => {
     });
 };
 
-module.exports = { addAppointment };
+const getAppointments = (req, res) => {
+  Appointment.aggregate([
+    {
+      $sort: {
+        fullSchedule: 1,
+      },
+    },
+  ])
+    .then((result) => {
+      return res.send(result);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+const deleteAppointment = (req, res) => {
+  const { appointment_id } = req.params;
+
+  Appointment.deleteOne({ appointment_id })
+    .then((result) => {
+      return res.send(result);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+module.exports = { addAppointment, getAppointments, deleteAppointment };

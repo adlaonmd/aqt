@@ -15,7 +15,7 @@
                     <label for="month">Month</label>
                     <select name="month" id="month" formControlName="month">
                         <option value="" selected disabled>Select a month</option>
-                        <option *ngIf="appointmentForm.value.year !== '' && monthList.length === 0" value="" disabled>No available month</option>
+                        <option *ngIf="appointmentForm.value.year !== '' && monthList && monthList.length === 0" value="" disabled>No available month</option>
                         <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
                     </select>
                 </div>
@@ -23,7 +23,7 @@
                     <label for="day">Day</label>
                     <select name="day" id="day" formControlName="day">
                         <option value="" selected disabled>Select a day</option>
-                        <option *ngIf="appointmentForm.value.month !== '' && dayList.length === 0" value="" disabled>No available day</option>
+                        <option *ngIf="appointmentForm.value.month !== '' && dayList && dayList.length === 0" value="" disabled>No available day</option>
                         <option *ngFor="let day of dayList" [value]="day">{{ day }}</option>
                     </select>
                 </div>
@@ -31,7 +31,7 @@
                     <label for="time">Time</label>
                     <select name="time" id="time" formControlName="time">
                         <option value="" selected disabled>Select a time</option>
-                        <option *ngIf="appointmentForm.value.day !== '' && timeSlotList.length === 0" value="" disabled>No available time</option>
+                        <option *ngIf="appointmentForm.value.day !== '' && timeSlotList && timeSlotList.length === 0" value="" disabled>No available time</option>
                         <option *ngFor="let val of timeSlotList" [value]="val.time">{{ val.time }} - Slots: {{ val.slots }}</option>
                     </select>
                 </div>

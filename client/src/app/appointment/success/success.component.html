@@ -3,8 +3,8 @@
     <div id="info">
         <h2>Your appointment is set!</h2>
         <p id="message">Appointment ID: {{ appointment_id }}</p>
-        <p id="note">We will send you an SMS/email notification 30 minutes before your appointment</p>
+        <p id="note">We will send you an SMS/email notification <strong>30 minutes</strong> before your appointment</p>
         <button routerLink="/">Home</button>
-        <button class="cancel">Cancel Appointment</button>
+        <button class="cancel" (click)="cancelAppointment()">Cancel Appointment</button>
     </div>
 </div>

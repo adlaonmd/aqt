@@ -1,0 +1,51 @@
+#cancel {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  background: #fff;
+
+  #logo {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  #info {
+    background: #f0f0b4;
+    width: 100%;
+    max-width: 600px;
+    padding: 2em;
+    box-shadow: 0.125em 0.125em 0.5em rgba(200, 200, 40, 50%);
+    border: 0.0625em solid #c8c828;
+    text-align: center;
+
+    h2 {
+      color: #c8c828;
+    }
+
+    #message {
+      font-weight: 700;
+      margin-top: 0.25em;
+    }
+
+    button {
+      border: none;
+      margin-top: 1.25em;
+      background: #314a9a;
+      width: 100%;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      transition: 200ms;
+    }
+
+    button:hover {
+      background: #000;
+    }
+  }
+}
