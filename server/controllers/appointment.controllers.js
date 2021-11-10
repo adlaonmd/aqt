@@ -114,7 +114,7 @@ const deleteAppointment = (req, res) => {
 
   Appointment.deleteOne({ appointment_id })
     .then((result) => {
-      return res.send(result);
+      return res.json("Appointment deleted successfully");
     })
     .catch((error) => {
       console.error(error);
