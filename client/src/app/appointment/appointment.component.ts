@@ -24,7 +24,7 @@ export class AppointmentComponent implements OnInit {
   monthList!: string[];
   dayList!: string[];
   timeSlotList!: any;
-  slotsPerPerson!: number;
+  personsPerTable!: number;
   appointmentId!: string;
 
   appointmentForm!: FormGroup;
@@ -157,7 +157,7 @@ export class AppointmentComponent implements OnInit {
       if (month !== '' && selectedDay) {
         this.appointmentForm.patchValue({ time: '' });
         this.scheduleService.getSchedule(year, month, selectedDay).subscribe((res: any) => {
-          this.slotsPerPerson = res[0].persons;
+          this.personsPerTable = res[0].persons;
           this.scheduleService.setTimeList(res);
         });
       }

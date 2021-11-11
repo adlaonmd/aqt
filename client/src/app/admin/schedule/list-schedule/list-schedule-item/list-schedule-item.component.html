@@ -11,13 +11,13 @@
     <div class="schedule" [class.hidden]="!open">
         <div class="schedule-header">
             <p>Time</p>
-            <p>Persons / Slot</p>
-            <p>Slots</p>
+            <p>Persons / Table</p>
+            <p>Tables</p>
         </div>
         <div *ngFor="let schedule of sched.schedule" class="schedule-time" >
             <p class="time">{{ schedule.time }}</p>
             <p class="persons">{{ sched.persons }}</p>
-            <p class="slots">{{ schedule.slots }}</p>
+            <p class="slots">{{ schedule.tables }}</p>
         </div>
     </div>
 </div>

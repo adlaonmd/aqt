@@ -42,7 +42,7 @@
             </div>
         </div>
         <div id="step-2" [class.hidden]="step !== 2">
-            <h3>Tell us about you and your group of family/friends</h3>
+            <h3>Tell us about you and your company</h3>
             <div class="form-field">
                 <div>
                     <label for="first-name">First Name</label>
@@ -58,10 +58,10 @@
                 </div>
                 <div>
                     <label for="phone-number">Phone Number</label>
-                    <input type="tel" name="phone-number" id="phone-number" placeholder="Enter your phone number | Ex. 09xxxxxxxxx" formControlName="phoneNumber">
+                    <input type="tel" name="phone-number" id="phone-number" placeholder="Ex. 09xxxxxxxxx" formControlName="phoneNumber">
                 </div>
                 <div>
-                    <label for="group-size">Group Size <br/><small>(including yourself | 1 slot = {{ slotsPerPerson }} {{ slotsPerPerson > 1 ? "persons" : "person" }})</small></label>
+                    <label for="group-size">Group Size <br/><small>(including yourself | 1 table = {{ personsPerTable }} {{ personsPerTable > 1 ? "persons" : "person" }})</small></label>
                     <input type="number" name="group-sizer" id="group-size" placeholder="Minimum of 1; Maximum of 20" min="1" max="20" formControlName="groupSize">
                 </div>
                 <div class="step-control">

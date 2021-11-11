@@ -2,3 +2,32 @@ form {
   display: grid;
   gap: 1em;
 }
+
+#schedule-container {
+  #navigation-tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    width: 100%;
+    max-width: 400px;
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: #314a9a;
+      padding: 0.5em 1em;
+      color: #fff;
+      font-size: 1rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    button:hover {
+      background: #000;
+    }
+  }
+
+  #display-container {
+    margin-top: 1em;
+  }
+}

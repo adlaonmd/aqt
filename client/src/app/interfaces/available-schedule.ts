@@ -11,5 +11,5 @@ export interface AvailableSchedule {
 
 interface Schedule {
   time: string;
-  slots: number;
+  tables: number;
 }

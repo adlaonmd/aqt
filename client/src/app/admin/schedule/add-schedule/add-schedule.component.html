@@ -1,28 +1,30 @@
 <div id="add-schedule">
     <h3>Add Schedule</h3>
     <form id="add-schedule-form" [formGroup]="addScheduleForm" (ngSubmit)="handleSubmit()">
-        <div>
-            <label for="year">Year</label>
-            <select name="year" formControlName="year">
-                <option value="" selected disabled>Select a year</option>
-                <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
-            </select>
+        <div id="date-field">
+            <div>
+                <label for="year">Year</label>
+                <select name="year" formControlName="year">
+                    <option value="" selected disabled>Select a year</option>
+                    <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
+                </select>
+            </div>
+            <div>
+                <label for="month">Month</label>
+                <select name="month" formControlName="month">
+                    <option value="" selected disabled>Select a month</option>
+                    <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
+                </select>
+            </div>
+            <div>
+                <label for="day">Day</label>
+                <select name="day" formControlName="day">
+                    <option value="" selected disabled>Select a day</option>
+                    <option *ngFor="let day of dayList" [value]="day">{{ day }}</option>
+                </select>
+            </div>
         </div>
-        <div>
-            <label for="month">Month</label>
-            <select name="month" formControlName="month">
-                <option value="" selected disabled>Select a month</option>
-                <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
-            </select>
-        </div>
-        <div>
-            <label for="day">Day</label>
-            <select name="day" formControlName="day">
-                <option value="" selected disabled>Select a day</option>
-                <option *ngFor="let day of dayList" [value]="day">{{ day }}</option>
-            </select>
-        </div>
-        <div id="time">
+        <div id="time-field">
             <div>
                 <label for="opening-time">Opening Time</label>
                 <select name="opening-time" formControlName="openingTime">
@@ -37,21 +39,23 @@
                     <option *ngFor="let closingTime of closingTimeList" [value]="closingTime">{{ closingTime }}</option>
                 </select>
             </div>
+            <div>
+                <label name="time-span">Time Span</label>
+                <select name="time-span" formControlName="timeSpan">
+                    <option value="" selected disabled>Select time span</option>
+                    <option *ngFor="let timeSpan of timeSpanList" [ngValue]="timeSpan">{{ timeSpan }} {{ timeSpan === 1 ? 'hour' : 'hours' }}</option>
+                </select>
+            </div>
         </div>
-        <div>
-            <label name="time-span">Time Span</label>
-            <select name="time-span" formControlName="timeSpan">
-                <option value="" selected disabled>Select time span</option>
-                <option *ngFor="let timeSpan of timeSpanList" [ngValue]="timeSpan">{{ timeSpan }} {{ timeSpan === 1 ? 'hour' : 'hours' }}</option>
-            </select>
-        </div>
-        <div>
-            <label name="slots">Available Slots</label>
-            <input name="slots" type="number" formControlName="slots" min="1" max="20" placeholder="Minimum of 1; Maximum of 20">
-        </div>
-        <div>
-            <label name="persons">Persons Per Slot</label>
-            <input name="persons" type="number" formControlName="persons" min="1" max="5" placeholder="Minimum of 1; Maximum of 5">
+        <div id="slots-field">
+            <div>
+                <label name="tables">Available Tables</label>
+                <input name="tables" type="number" formControlName="tables" min="1" max="20" placeholder="Minimum of 1; Maximum of 20">
+            </div>
+            <div>
+                <label name="persons">Persons Per Table</label>
+                <input name="persons" type="number" formControlName="persons" min="1" max="5" placeholder="Minimum of 1; Maximum of 5">
+            </div>
         </div>
         <input type="submit" value="Add Schedule" [disabled]="!addScheduleForm.valid">
     </form>

@@ -41,7 +41,7 @@ export class AddScheduleComponent implements OnInit {
       openingTime: ['', Validators.required],
       closingTime: ['', Validators.required],
       timeSpan: ['', Validators.required],
-      slots: ['', Validators.required],
+      tables: ['', Validators.required],
       persons: ['', Validators.required],
     });
 
@@ -111,7 +111,6 @@ export class AddScheduleComponent implements OnInit {
 
   getAvailableOpeningTimes(): void {
     this.addScheduleForm.get('day')?.valueChanges.subscribe((selectedDay) => {
-      this.addScheduleForm.patchValue({ openingTime: '' });
       this.generateOpeningTimeList(selectedDay);
     });
   }
