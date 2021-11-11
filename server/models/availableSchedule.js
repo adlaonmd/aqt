@@ -12,7 +12,7 @@ const availableScheduleSchema = new Schema(
     schedule: [
       {
         time: String,
-        slots: Number,
+        tables: Number,
       },
     ],
     persons: Number,

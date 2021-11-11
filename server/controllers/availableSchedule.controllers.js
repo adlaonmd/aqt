@@ -1,5 +1,7 @@
 const AvailableSchedule = require("../models/availableSchedule");
 
+const collation = { locale: "en_US", numericOrdering: true };
+
 const getScheduleByYear = (req, res) => {
   const { year } = req.params;
 
@@ -45,6 +47,7 @@ const getScheduleByYearMonth = (req, res) => {
       },
     },
   ])
+    .collation(collation)
     .then((result) => {
       return res.send(result);
     })
@@ -70,6 +73,7 @@ const getSchedule = (req, res) => {
       },
     },
   ])
+    .collation(collation)
     .then((result) => {
       return res.send(result);
     })
@@ -79,11 +83,11 @@ const getSchedule = (req, res) => {
 };
 
 const addAvailableSchedule = (req, res) => {
-  const { year, month, day, openingTime, closingTime, timeSpan, slots, persons } = req.body;
+  const { year, month, day, openingTime, closingTime, timeSpan, tables, persons } = req.body;
 
   const fullDate = new Date(`${year}/${month}/${day}`).toLocaleDateString("ja-JP");
 
-  const schedule = generateSchedule(openingTime, closingTime, timeSpan, slots);
+  const schedule = generateSchedule(openingTime, closingTime, timeSpan, tables);
 
   AvailableSchedule.aggregate([
     {
@@ -133,7 +137,7 @@ const deleteSchedule = (req, res) => {
     });
 };
 
-function generateSchedule(openingTime, closingTime, timeSpan, slots) {
+function generateSchedule(openingTime, closingTime, timeSpan, tables) {
   const startTime = require("../utils/time").convertTime12to24(openingTime);
   const endTime = require("../utils/time").convertTime12to24(closingTime);
   let list = [];
@@ -141,7 +145,7 @@ function generateSchedule(openingTime, closingTime, timeSpan, slots) {
   for (let i = startTime; i < endTime; i += timeSpan) {
     let hours = ((i + 11) % 12) + 1;
     let suffix = i >= 12 ? "PM" : "AM";
-    list = [...list, { time: `${hours}:00 ${suffix}`, slots }];
+    list = [...list, { time: `${hours}:00 ${suffix}`, tables }];
   }
 
   return list;

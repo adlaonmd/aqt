@@ -1,6 +1,7 @@
-const { ObjectId } = require("mongodb");
 const Appointment = require("../models/appointment");
 const AvailableSchedule = require("../models/availableSchedule");
+
+const collation = { locale: "en_US", numericOrdering: true };
 
 const addAppointment = (req, res) => {
   const { year, month, day, time, firstName, lastName, email, phoneNumber, groupSize } = req.body;
@@ -101,6 +102,7 @@ const getAppointments = (req, res) => {
       },
     },
   ])
+    .collation(collation)
     .then((result) => {
       return res.send(result);
     })
