@@ -1,0 +1,28 @@
+<div id="view-appointment">
+    <h3>View Appointment</h3>
+    <form id="view-appointment-form" [formGroup]="viewAppointmentsForm" (ngSubmit)="handleSubmit()">
+        <div class="input-group">
+            <label for="year">Year</label>
+            <select name="year" formControlName="year">
+                <option value="" selected disabled>Select a year</option>
+                <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="month">Month</label>
+            <select name="month" formControlName="month">
+                <option value="" selected disabled>Select a month</option>
+                <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="day">Day</label>
+            <select name="day" formControlName="day">
+                <option value="" selected disabled>Select a day</option>
+                <option *ngFor="let day of dayList" [value]="day">{{ day }}</option>
+            </select>
+        </div>
+        <input type="submit" value="View Appointment" [disabled]="!viewAppointmentsForm.valid">
+    </form>
+    <app-list-appointment *ngIf="viewAppointments"></app-list-appointment>
+</div>

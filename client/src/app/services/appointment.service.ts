@@ -9,11 +9,14 @@ const APPOINTMENTS_URL = 'http://localhost:3000/api/appointments';
   providedIn: 'root',
 })
 export class AppointmentService {
+  constructor(private http: HttpClient) {}
+
   private submittedStatus = false;
   private message = new BehaviorSubject<string>('');
-  currentMessage = this.message.asObservable();
+  private appointmentList = new BehaviorSubject<Object>([]);
 
-  constructor(private http: HttpClient) {}
+  currentMessage = this.message.asObservable();
+  currentAppointmentList = this.appointmentList.asObservable();
 
   get isAppointmentSubmitted() {
     return this.submittedStatus;
@@ -27,11 +30,23 @@ export class AppointmentService {
     this.submittedStatus = value;
   }
 
+  setAppointmentList(list: Object): void {
+    this.appointmentList.next(list);
+  }
+
   addAppointment(appointment: Appointment): Observable<Object> {
     return this.http.post(APPOINTMENTS_URL, appointment);
   }
 
-  deleteAppointment(appointment_id: string): Observable<Object> {
-    return this.http.delete(`${APPOINTMENTS_URL}/${appointment_id}`);
+  getAppointment(appointment_id: string): Observable<Object> {
+    return this.http.get(`${APPOINTMENTS_URL}/${appointment_id}`);
+  }
+
+  getAppointmentsByDay(year: string, month: string, day: string): Observable<Object> {
+    return this.http.get(`${APPOINTMENTS_URL}/${year}/${month}/${day}`);
+  }
+
+  cancelAppointment(appointment: Appointment): Observable<Object> {
+    return this.http.patch(APPOINTMENTS_URL, appointment);
   }
 }

@@ -20,7 +20,11 @@ export class ListScheduleItemComponent implements OnInit {
     this.open = !this.open;
   }
 
-  deleteSchedule(schedule: any): void {
-    this.scheduleService.deleteSchedule(schedule);
+  deleteSchedule(): void {
+    this.scheduleService.deleteSchedule(this.sched).subscribe((res) => {
+      this.scheduleService.getScheduleByYearMonth(this.sched.year, this.sched.month).subscribe((res) => {
+        this.scheduleService.setScheduleList(res);
+      });
+    });
   }
 }

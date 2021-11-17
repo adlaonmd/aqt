@@ -27,7 +27,6 @@ export class AddScheduleComponent implements OnInit {
   timeSpanList: number[] = [1, 2, 4];
 
   addScheduleForm!: FormGroup;
-  daysInMonth!: number;
 
   existingSchedules!: any;
 
@@ -90,14 +89,14 @@ export class AddScheduleComponent implements OnInit {
       let { year, month } = this.addScheduleForm.value;
       if (month !== '') {
         let selectedMonth = new Date(`${year}-${month}`);
-        this.daysInMonth = new Date(parseInt(year), selectedMonth.getMonth() + 1, 0).getDate();
+        let daysInMonth = new Date(parseInt(year), selectedMonth.getMonth() + 1, 0).getDate();
 
         if (year === this.currentYear && month === months[this.currentMonth]) {
-          for (let i = this.currentDay; i <= this.daysInMonth; i++) {
+          for (let i = this.currentDay; i <= daysInMonth; i++) {
             this.dayList.push(i.toString());
           }
         } else {
-          for (let i = 1; i <= this.daysInMonth; i++) {
+          for (let i = 1; i <= daysInMonth; i++) {
             this.dayList.push(i.toString());
           }
         }

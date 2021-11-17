@@ -29,7 +29,7 @@ export class ViewScheduleComponent implements OnInit {
     const { year, month } = this.viewScheduleForm.value;
     this.scheduleService.getScheduleByYearMonth(year, month).subscribe((res) => {
       this.scheduleService.setScheduleList(res);
+      this.viewSchedule = true;
     });
-    this.viewSchedule = true;
   }
 }

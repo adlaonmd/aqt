@@ -19,10 +19,17 @@ export class SuccessComponent implements OnInit {
   }
 
   cancelAppointment(): void {
-    this.appointmentService.deleteAppointment(this.appointment_id).subscribe(
-      (res) => {
-        this.appointmentService.setSubmittedStatus(true);
-        this.router.navigate(['../cancel'], { relativeTo: this.route });
+    this.appointmentService.getAppointment(this.appointment_id).subscribe(
+      (appointment: any) => {
+        this.appointmentService.cancelAppointment(appointment).subscribe(
+          (res) => {
+            this.appointmentService.setSubmittedStatus(true);
+            this.router.navigate(['../cancel'], { relativeTo: this.route });
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
       },
       (err) => {
         console.log(err);

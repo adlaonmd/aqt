@@ -6,7 +6,7 @@
     <p class="closing-time">{{ sched.closingTime }}</p>
     <div class="schedule-operation">
         <button (click)="viewSchedule()">View</button>
-        <button (click)="deleteSchedule(sched)">Delete</button>
+        <button (click)="deleteSchedule()">Delete</button>
     </div>
     <div class="schedule" [class.hidden]="!open">
         <div class="schedule-header">

@@ -56,9 +56,7 @@ export class ScheduleService {
     console.log('Updating schedule');
   }
 
-  deleteSchedule(schedule: AvailableSchedule): void {
-    this.http.delete(`${AVAILABLE_SCHED_URL}/${schedule._id}`).subscribe(() => {
-      this.getScheduleByYearMonth(schedule.year, schedule.month);
-    });
+  deleteSchedule(schedule: AvailableSchedule): Observable<Object> {
+    return this.http.delete(`${AVAILABLE_SCHED_URL}/${schedule._id}`);
   }
 }

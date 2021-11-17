@@ -174,7 +174,7 @@ export class AppointmentComponent implements OnInit {
           Object.values(schedule).map((sched: any) => {
             Object.values(sched.schedule).map((result: any) => {
               if (result.slots !== 0) {
-                this.timeSlotList.push({ time: result.time, slots: result.slots });
+                this.timeSlotList.push({ time: result.time, tables: result.tables });
               }
             });
           });

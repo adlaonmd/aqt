@@ -1,0 +1,11 @@
+#list-appointment {
+  display: grid;
+  gap: 1em;
+  padding: 2em 0;
+
+  #appointment-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

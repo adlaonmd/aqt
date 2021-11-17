@@ -8,7 +8,5 @@ import { Component, OnInit } from '@angular/core';
 export class AppointmentComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('Hello, appointment!');
-  }
+  ngOnInit(): void {}
 }

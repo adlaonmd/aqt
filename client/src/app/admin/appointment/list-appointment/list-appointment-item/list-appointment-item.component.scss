@@ -1,0 +1,60 @@
+.appointment-item {
+  border: 0.0625em solid #000;
+  padding: 1em 2em;
+
+  .header,
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header {
+    border-bottom: 0.125em solid #000;
+    padding-bottom: 0.5em;
+  }
+
+  .content {
+    margin: 1em 0;
+
+    .info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .group-size {
+      margin-top: 0.5em;
+    }
+  }
+
+  .footer {
+    border-top: 0.0625em solid #000;
+    padding-top: 0.5em;
+
+    .status {
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: #000;
+      padding: 0.25em 1.5em;
+      border-radius: 1em;
+    }
+
+    .waiting {
+      background: #c8c828;
+    }
+
+    .arrived {
+      background: #28b43c;
+    }
+
+    .cancelled {
+      background: #e52321;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1em;
+    }
+  }
+}

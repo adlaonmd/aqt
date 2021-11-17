@@ -14,6 +14,5 @@ export class ScheduleComponent implements OnInit {
 
   viewTab(tab: string) {
     this.currentTab = tab;
-    console.log(this.currentTab);
   }
 }

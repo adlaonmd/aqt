@@ -14,6 +14,7 @@ const appointmentSchema = new Schema(
     email: String,
     phoneNumber: String,
     groupSize: Number,
+    status: String,
   },
   { collection: "appointments" }
 );

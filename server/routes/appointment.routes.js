@@ -4,6 +4,8 @@ const controller = require("../controllers/appointment.controllers");
 
 router.post("/", controller.addAppointment);
 router.get("/", controller.getAppointments);
-router.delete("/:appointment_id", controller.deleteAppointment);
+router.get("/:appointment_id", controller.getAppointment);
+router.get("/:year/:month/:day", controller.getAppointmentsByDay);
+router.patch("/", controller.cancelAppointment);
 
 module.exports = router;
