@@ -38,5 +38,40 @@
 
   .content {
     padding: 1em;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+
+    h3 {
+      text-align: center;
+      margin-top: 2em;
+      margin-bottom: 1em;
+    }
+
+    #greetings {
+      text-align: center;
+      margin-top: 1em;
+      font-size: 1.2rem;
+    }
+
+    #overview {
+      display: grid;
+      gap: 2em;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+
+      .card {
+        border: 0.0625em solid #000;
+        padding: 2em;
+        font-size: 1rem;
+
+        p {
+          font-size: 2rem;
+          font-weight: 700;
+        }
+      }
+    }
   }
 }

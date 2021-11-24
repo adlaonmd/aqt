@@ -1,1 +1,10 @@
-<app-view-appointment></app-view-appointment>
+<div id="appointment-container">
+    <div id="navigation-tab">
+        <button id="view-schedule" (click)="viewTab('view')">View</button>
+        <button id="add-schedule" (click)="viewTab('find')">Find</button>
+    </div>
+    <div id="display-container">
+        <app-view-appointment *ngIf="currentTab === 'view'"></app-view-appointment>
+        <app-find-appointment *ngIf="currentTab === 'find'"></app-find-appointment>
+    </div>
+</div>

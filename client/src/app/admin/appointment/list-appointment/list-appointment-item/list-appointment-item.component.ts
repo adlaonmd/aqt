@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Appointment } from 'src/app/interfaces/appointment';
 import { AppointmentStatus } from 'src/app/enums/appointment_status';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
   selector: 'app-list-appointment-item',
@@ -10,17 +11,29 @@ import { AppointmentStatus } from 'src/app/enums/appointment_status';
 export class ListAppointmentItemComponent implements OnInit {
   @Input() appointment!: Appointment;
 
-  constructor() {}
+  constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {}
 
   cancelAppointment(): void {
-    console.log(`Cancelling appointment ID: ${this.appointment.appointment_id}`);
-    this.appointment.status = AppointmentStatus.CANCELLED;
+    this.appointmentService.cancelAppointment(this.appointment).subscribe(
+      (res) => {
+        this.appointment.status = AppointmentStatus.CANCELLED;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   acceptAppointment(): void {
-    console.log(`Accepting appointment ID: ${this.appointment.appointment_id}`);
-    this.appointment.status = AppointmentStatus.ARRIVED;
+    this.appointmentService.arrivedAppointment(this.appointment).subscribe(
+      (res) => {
+        this.appointment.status = AppointmentStatus.ARRIVED;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

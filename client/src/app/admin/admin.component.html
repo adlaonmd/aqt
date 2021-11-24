@@ -10,7 +10,29 @@
     </header>
     <div class="content">
         <div *ngIf="this.route.children.length === 0">
-            <h2 style="text-align: center">Welcome to Admin Dashboard</h2>
+            <div id="greetings">
+                <p>
+                    {{ currentTime <= 11 ? "It's a great morning" : ""}}
+                    {{ currentTime <= 17 ? "What an awesome afternoon" : ""}}
+                    {{ currentTime <= 24 ? "Have a nice evening" : ""}}
+                </p>
+                <p>Today is <strong>{{ currentMonthFormatted }} {{ currentDay }}, {{ currentYear }}</strong></p>
+            </div>
+            <h3>Appointments</h3>
+            <div id="overview">
+                <div class="card">
+                    <label>Today</label>
+                    <p>{{ appointmentsToday }}</p>
+                </div>
+                <div class="card">
+                    <label>Tomorrow</label>
+                    <p>{{ appointmentsTomorrow }}</p>
+                </div>
+                <div class="card">
+                    <label>Yesterday</label>
+                    <p>{{ appointmentsYesterday }}</p>
+                </div>
+            </div>
         </div>
         <router-outlet></router-outlet>
     </div>

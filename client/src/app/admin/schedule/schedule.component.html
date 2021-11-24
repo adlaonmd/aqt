@@ -4,7 +4,7 @@
         <button id="add-schedule" (click)="viewTab('add')">Add</button>
     </div>
     <div id="display-container">
-        <app-add-schedule *ngIf="currentTab === 'add'"></app-add-schedule>
         <app-view-schedule *ngIf="currentTab === 'view'"></app-view-schedule>
+        <app-add-schedule *ngIf="currentTab === 'add'"></app-add-schedule>
     </div>
 </div>

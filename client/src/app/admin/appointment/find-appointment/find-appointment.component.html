@@ -1,0 +1,11 @@
+<div id="view-appointment">
+    <h3>Find Appointment</h3>
+    <form id="view-appointment-form" [formGroup]="findAppointmentForm" (ngSubmit)="handleSubmit()">
+        <div class="input-group">
+            <label for="appointment_id">Appointment ID</label>
+            <input type="text" placeholder="Enter appointment ID" formControlName="appointment_id"/>
+        </div>
+        <input type="submit" value="Find Appointment" [disabled]="!findAppointmentForm.valid">
+    </form>
+    <app-list-appointment *ngIf="findAppointment"></app-list-appointment>
+</div>

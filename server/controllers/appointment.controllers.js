@@ -125,7 +125,7 @@ const getAppointments = (req, res) => {
 const getAppointment = (req, res) => {
   const { appointment_id } = req.params;
 
-  Appointment.findOne({ appointment_id })
+  Appointment.aggregate([{ $match: { appointment_id } }])
     .then((result) => {
       return res.send(result);
     })
@@ -204,4 +204,23 @@ const cancelAppointment = (req, res) => {
     });
 };
 
-module.exports = { addAppointment, getAppointments, getAppointment, getAppointmentsByDay, cancelAppointment };
+const arrivedAppointment = (req, res) => {
+  const { appointment_id } = req.body;
+
+  Appointment.updateOne({ appointment_id }, { status: Status.ARRIVED })
+    .then((result) => {
+      return res.json("Appointment arrived");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+module.exports = {
+  addAppointment,
+  getAppointments,
+  getAppointment,
+  getAppointmentsByDay,
+  cancelAppointment,
+  arrivedAppointment,
+};

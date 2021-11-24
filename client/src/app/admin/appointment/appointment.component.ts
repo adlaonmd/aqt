@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./appointment.component.scss'],
 })
 export class AppointmentComponent implements OnInit {
+  currentTab?: string;
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  viewTab(tab: string) {
+    this.currentTab = tab;
+  }
 }

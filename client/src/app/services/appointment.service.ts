@@ -47,6 +47,10 @@ export class AppointmentService {
   }
 
   cancelAppointment(appointment: Appointment): Observable<Object> {
-    return this.http.patch(APPOINTMENTS_URL, appointment);
+    return this.http.patch(`${APPOINTMENTS_URL}/cancel`, appointment);
+  }
+
+  arrivedAppointment(appointment: Appointment): Observable<Object> {
+    return this.http.patch(`${APPOINTMENTS_URL}/arrived`, appointment);
   }
 }

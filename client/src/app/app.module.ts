@@ -8,9 +8,10 @@ import { AppointmentModule } from './appointment/appointment.module';
 import { AppointmentRoutingModule } from './appointment/appointment-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { AdminRoutingModule } from './admin/admin-routing.module';
+import { FindAppointmentComponent } from './find-appointment/find-appointment.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FindAppointmentComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

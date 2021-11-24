@@ -6,9 +6,10 @@ import { AppointmentComponent } from './appointment.component';
 import { ViewAppointmentComponent } from './view-appointment/view-appointment.component';
 import { ListAppointmentComponent } from './list-appointment/list-appointment.component';
 import { ListAppointmentItemComponent } from './list-appointment/list-appointment-item/list-appointment-item.component';
+import { FindAppointmentComponent } from './find-appointment/find-appointment.component';
 
 @NgModule({
-  declarations: [AppointmentComponent, ViewAppointmentComponent, ListAppointmentComponent, ListAppointmentItemComponent],
+  declarations: [AppointmentComponent, ViewAppointmentComponent, ListAppointmentComponent, ListAppointmentItemComponent, FindAppointmentComponent],
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class AppointmentModule {}
