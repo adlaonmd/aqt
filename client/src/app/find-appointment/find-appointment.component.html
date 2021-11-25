@@ -1,1 +1,50 @@
-<p>find-appointment works!</p>
+<div id="find-appointment">
+    <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
+    <div id="content">
+        <a id="go-back" routerLink="/">< Go Back</a>
+        <form [formGroup]="findAppointmentForm" (ngSubmit)="handleSubmit()">
+            <label for="appointment_id">Appointment ID</label>
+            <div class="input-field">
+                <input type="text" placeholder="Enter your appointment ID" formControlName="appointment_id"/>
+                <input type="submit" value="Find Appointment" [disabled]="!findAppointmentForm.valid"/>
+            </div>
+        </form>
+        <div *ngIf="findAppointment">
+            <ng-container *ngIf="appointment.length === 0; then noAppointment; else displayAppointment"></ng-container>
+            <ng-template #noAppointment>
+                <div id="no-appointment">
+                    <p>No appointment found</p>
+                </div>
+            </ng-template>
+            <ng-template #displayAppointment>
+                <div id="result">
+                    <div class="appointment-item">
+                        <div class="header">
+                            <p>Time: <strong>{{ appointment.time }}</strong></p>
+                            <p>ID: <strong>{{ appointment.appointment_id }}</strong></p>
+                        </div>
+                        <div class="content">
+                            <div class="info">
+                                <div class="name">
+                                    <p>First Name: <strong>{{ appointment.firstName }}</strong></p>
+                                    <p>Last Name: <strong>{{ appointment.lastName }}</strong></p>
+                                </div>
+                                <div class="contact">
+                                    <p>Email: <strong>{{ appointment.email }}</strong></p>
+                                    <p>Phone Number: <strong>{{ appointment.phoneNumber }}</strong></p>
+                                </div>
+                            </div>
+                            <p class="group-size">Group Size: <strong>{{ appointment.groupSize }}</strong></p>
+                        </div>
+                        <div class="footer">
+                            <p class="status" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</p>
+                            <div class="controls" *ngIf="appointment.status === 'WAITING'">
+                                <button (click)="cancelAppointment()">Cancel appointment</button>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

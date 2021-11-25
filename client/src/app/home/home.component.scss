@@ -1,0 +1,49 @@
+#home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 1em;
+  background: #fff;
+
+  #logo {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  #button-container {
+    margin-top: 1em;
+    width: 100%;
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+
+    button {
+      cursor: pointer;
+      background: #314a9a;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: 200ms;
+      font-size: 1rem;
+      padding: 0.5em 1em;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #000;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #home {
+    #button-container {
+      grid-template-columns: 1fr;
+      gap: 1em;
+    }
+  }
+}
