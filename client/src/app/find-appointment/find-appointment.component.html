@@ -39,7 +39,7 @@
                         <div class="footer">
                             <p class="status" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</p>
                             <div class="controls" *ngIf="appointment.status === 'WAITING'">
-                                <button (click)="cancelAppointment()">Cancel appointment</button>
+                                <button (click)="cancelAppointment()">Cancel</button>
                             </div>
                         </div>
                     </div>                    
