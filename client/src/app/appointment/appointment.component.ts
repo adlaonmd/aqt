@@ -198,7 +198,16 @@ export class AppointmentComponent implements OnInit {
           Object.values(schedule).map((sched: any) => {
             Object.values(sched.schedule).map((result: any) => {
               if (result.slots !== 0) {
-                if (convertTime12to24(result.time) > this.currentHour && this.currentMinutes <= 40) {
+                const { year, month, day } = this.appointmentForm.value;
+                if (
+                  year === this.currentYear &&
+                  month === months[this.currentMonth] &&
+                  day === this.currentDay.toString()
+                ) {
+                  if (convertTime12to24(result.time) > this.currentHour && this.currentMinutes <= 40) {
+                    this.timeList.push({ time: result.time, tables: result.tables });
+                  }
+                } else {
                   this.timeList.push({ time: result.time, tables: result.tables });
                 }
               }
