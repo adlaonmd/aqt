@@ -1,6 +1,9 @@
 <div class="appointment-item">
     <div class="header">
-        <p>Time: <strong>{{ appointment.time }}</strong></p>
+        <div>
+            <p>Time: <strong>{{ appointment.time }}</strong></p>
+            <p>Date: <strong>{{ appointment.month }} {{ appointment.day }}, {{ appointment.year }}</strong></p>
+        </div>
         <p>ID: <strong>{{ appointment.appointment_id }}</strong></p>
     </div>
     <div class="content">
