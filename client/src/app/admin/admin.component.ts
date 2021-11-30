@@ -43,30 +43,32 @@ export class AdminComponent implements OnInit {
   }
 
   getAppointmentsTomorrow(): void {
+    let month = months[this.currentMonth];
     let tomorrow = this.currentDay + 1;
     if (tomorrow > this.daysInMonth) {
       tomorrow = 1;
+      month = months[this.currentMonth + 1];
     }
 
-    this.appointmentService
-      .getAppointmentsByDay(this.currentYear, months[this.currentMonth + 1], tomorrow.toString())
-      .subscribe((res: any) => {
-        res.map((appointment: Appointment) => {
-          if (appointment.status !== AppointmentStatus.CANCELLED) {
-            this.appointmentsTomorrow++;
-          }
-        });
+    this.appointmentService.getAppointmentsByDay(this.currentYear, month, tomorrow.toString()).subscribe((res: any) => {
+      res.map((appointment: Appointment) => {
+        if (appointment.status !== AppointmentStatus.CANCELLED) {
+          this.appointmentsTomorrow++;
+        }
       });
+    });
   }
 
   getAppointmentsYesterday(): void {
+    let month = months[this.currentMonth];
     let yesterday = this.currentDay - 1;
     if (yesterday < 1) {
       yesterday = this.daysInMonth;
+      month = months[this.currentMonth - 1];
     }
 
     this.appointmentService
-      .getAppointmentsByDay(this.currentYear, months[this.currentMonth - 1], yesterday.toString())
+      .getAppointmentsByDay(this.currentYear, month, yesterday.toString())
       .subscribe((res: any) => {
         res.map((appointment: Appointment) => {
           if (appointment.status !== AppointmentStatus.CANCELLED) {
