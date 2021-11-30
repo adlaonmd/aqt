@@ -4,6 +4,13 @@ form {
 }
 
 #schedule-container {
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+  }
+
   #navigation-tab {
     display: grid;
     grid-template-columns: 1fr 1fr;
