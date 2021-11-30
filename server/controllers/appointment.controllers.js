@@ -57,15 +57,15 @@ const addAppointment = (req, res) => {
               let newTableSize = Math.round(groupSize / result.persons);
               if (newTableSize === 0) newTableSize = 1;
 
-              if (result.schedule[i].slots - newTableSize < 0) {
+              if (result.schedule[i].tables - newTableSize < 0) {
                 return res.status(403).json("Insufficient tables for the group size");
               }
 
-              if (result.schedule[i].slots === 0) {
+              if (result.schedule[i].tables === 0) {
                 return res.status(403).json("No tables available");
               }
 
-              //Decrement the slots based on the user's group size
+              //Decrement the tables based on the user's group size
               AvailableSchedule.updateOne(
                 { "schedule._id": result.schedule[i]._id },
                 { $inc: { "schedule.$.tables": -newTableSize } }
