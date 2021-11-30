@@ -29,6 +29,7 @@ export class AppointmentComponent implements OnInit {
   dayList!: string[];
   timeList!: any;
   personsPerTable!: number;
+  maxPersons!: number;
   appointmentId!: string;
 
   appointmentForm!: FormGroup;
@@ -51,7 +52,7 @@ export class AppointmentComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern(emailRegex)]],
       phoneNumber: ['', [Validators.required, Validators.pattern(phoneRegex)]],
-      groupSize: ['', [Validators.required, Validators.min(1), Validators.max(20)]],
+      groupSize: ['', [Validators.required, Validators.min(1), Validators.max(this.maxPersons)]],
     });
 
     this.getMonthList();
@@ -60,6 +61,7 @@ export class AppointmentComponent implements OnInit {
     this.generateDayList();
     this.getTimeList();
     this.generateTimeList();
+    this.getMaxPersons();
   }
 
   get firstName() {
@@ -214,6 +216,21 @@ export class AppointmentComponent implements OnInit {
             });
           });
         }
+      }
+    });
+  }
+
+  getMaxPersons(): void {
+    this.appointmentForm.get('time')?.valueChanges.subscribe((selectedTime) => {
+      let { day } = this.appointmentForm.value;
+
+      if (day !== '') {
+        this.timeList.forEach((item: any) => {
+          if (item.time === selectedTime) {
+            this.maxPersons = this.personsPerTable * item.tables;
+            this.appointmentForm.controls['groupSize'].setValidators(Validators.max(this.maxPersons));
+          }
+        });
       }
     });
   }
