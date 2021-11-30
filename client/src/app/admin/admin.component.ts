@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
     }
 
     this.appointmentService
-      .getAppointmentsByDay(this.currentYear, months[this.currentMonth], tomorrow.toString())
+      .getAppointmentsByDay(this.currentYear, months[this.currentMonth + 1], tomorrow.toString())
       .subscribe((res: any) => {
         res.map((appointment: Appointment) => {
           if (appointment.status !== AppointmentStatus.CANCELLED) {
@@ -66,7 +66,7 @@ export class AdminComponent implements OnInit {
     }
 
     this.appointmentService
-      .getAppointmentsByDay(this.currentYear, months[this.currentMonth], yesterday.toString())
+      .getAppointmentsByDay(this.currentYear, months[this.currentMonth - 1], yesterday.toString())
       .subscribe((res: any) => {
         res.map((appointment: Appointment) => {
           if (appointment.status !== AppointmentStatus.CANCELLED) {
