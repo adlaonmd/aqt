@@ -47,22 +47,41 @@
                 <div>
                     <label for="first-name">First Name</label>
                     <input type="text" name="first-name" id="first-name" placeholder="Enter your first name" formControlName="firstName">
+                    <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
+                        <small class="input-error">First name is required</small>
+                    </div>
                 </div>
                 <div>
                     <label for="last-name">Last Name</label>
                     <input type="text" name="last-name" id="last-name" placeholder="Enter your last name" formControlName="lastName">
+                    <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+                        <small class="input-error">Last name is required</small>
+                    </div>
                 </div>
                 <div>
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" placeholder="Enter your email address" formControlName="email">
+                    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                        <small *ngIf="email?.errors?.['required']" class="input-error">Email address is required</small>
+                        <small *ngIf="email?.errors?.['pattern']" class="input-error">Invalid email address</small>
+                    </div>
                 </div>
                 <div>
                     <label for="phone-number">Phone Number</label>
                     <input type="tel" name="phone-number" id="phone-number" placeholder="Ex. 09xxxxxxxxx" formControlName="phoneNumber">
+                    <div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)">
+                        <small *ngIf="phoneNumber?.errors?.['required']" class="input-error">Phone number is required</small>
+                        <small *ngIf="phoneNumber?.errors?.['pattern']" class="input-error">Invalid phone number</small>
+                    </div>
                 </div>
                 <div>
                     <label for="group-size">Group Size <br/><small>(including yourself | 1 table = {{ personsPerTable }} {{ personsPerTable > 1 ? "persons" : "person" }})</small></label>
                     <input type="number" name="group-sizer" id="group-size" placeholder="Minimum of 1; Maximum of 20" min="1" max="20" formControlName="groupSize">
+                    <div *ngIf="groupSize?.invalid && (groupSize?.dirty || groupSize?.touched)">
+                        <small *ngIf="groupSize?.errors?.['required']" class="input-error">Group size is required</small>
+                        <small *ngIf="groupSize?.errors?.['min']" class="input-error">Minimum group size of 1</small>
+                        <small *ngIf="groupSize?.errors?.['max']" class="input-error">Maximum group size of 20</small>
+                    </div>
                 </div>
                 <div class="step-control">
                     <input type="button" value="Back" (click)="prevStep()">

@@ -58,6 +58,26 @@ export class AppointmentComponent implements OnInit {
     this.generateTimeList();
   }
 
+  get firstName() {
+    return this.appointmentForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.appointmentForm.get('lastName');
+  }
+
+  get email() {
+    return this.appointmentForm.get('email');
+  }
+
+  get phoneNumber() {
+    return this.appointmentForm.get('phoneNumber');
+  }
+
+  get groupSize() {
+    return this.appointmentForm.get('groupSize');
+  }
+
   nextStep(): void {
     this.step++;
   }
