@@ -52,7 +52,7 @@ export class AppointmentComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern(emailRegex)]],
       phoneNumber: ['', [Validators.required, Validators.pattern(phoneRegex)]],
-      groupSize: ['', [Validators.required, Validators.min(1), Validators.max(this.maxPersons)]],
+      groupSize: ['', [Validators.required, Validators.min(1)]],
     });
 
     this.getMonthList();
@@ -228,7 +228,7 @@ export class AppointmentComponent implements OnInit {
         this.timeList.forEach((item: any) => {
           if (item.time === selectedTime) {
             this.maxPersons = this.personsPerTable * item.tables;
-            this.appointmentForm.controls['groupSize'].setValidators(Validators.max(this.maxPersons));
+            this.appointmentForm.controls['groupSize'].addValidators(Validators.max(this.maxPersons));
           }
         });
       }
