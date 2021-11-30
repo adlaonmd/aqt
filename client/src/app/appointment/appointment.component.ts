@@ -23,7 +23,7 @@ export class AppointmentComponent implements OnInit {
   yearList: string[] = [this.currentYear, `${(new Date().getFullYear() + 1).toString()}`];
   monthList!: string[];
   dayList!: string[];
-  timeSlotList!: any;
+  timeList!: any;
   personsPerTable!: number;
   appointmentId!: string;
 
@@ -108,7 +108,7 @@ export class AppointmentComponent implements OnInit {
       this.appointmentForm.patchValue({ day: '' });
       this.appointmentForm.patchValue({ time: '' });
       this.dayList = [];
-      this.timeSlotList = [];
+      this.timeList = [];
       this.scheduleService.getScheduleByYear(selectedYear).subscribe((res) => {
         this.scheduleService.setMonthList(res);
       });
@@ -139,7 +139,7 @@ export class AppointmentComponent implements OnInit {
       if (year !== '' && selectedMonth) {
         this.appointmentForm.patchValue({ day: '' });
         this.appointmentForm.patchValue({ time: '' });
-        this.timeSlotList = [];
+        this.timeList = [];
         this.scheduleService.getScheduleByYearMonth(year, selectedMonth).subscribe((res) => {
           this.scheduleService.setDayList(res);
         });
@@ -188,13 +188,13 @@ export class AppointmentComponent implements OnInit {
     this.scheduleService.currentTimeList.subscribe((schedule) => {
       let { day } = this.appointmentForm.value;
       if (day !== '') {
-        this.timeSlotList = [];
+        this.timeList = [];
 
         if (day !== '') {
           Object.values(schedule).map((sched: any) => {
             Object.values(sched.schedule).map((result: any) => {
               if (result.slots !== 0) {
-                this.timeSlotList.push({ time: result.time, tables: result.tables });
+                this.timeList.push({ time: result.time, tables: result.tables });
               }
             });
           });

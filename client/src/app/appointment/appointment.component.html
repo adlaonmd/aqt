@@ -31,8 +31,8 @@
                     <label for="time">Time</label>
                     <select name="time" id="time" formControlName="time">
                         <option value="" selected disabled>Select a time</option>
-                        <option *ngIf="appointmentForm.value.day !== '' && timeSlotList && timeSlotList.length === 0" value="" disabled>No available time</option>
-                        <option *ngFor="let val of timeSlotList" [value]="val.time">{{ val.time }} - Available Tables: {{ val.tables }}</option>
+                        <option *ngIf="appointmentForm.value.day !== '' && timeList && timeList.length === 0" value="" disabled>No available time</option>
+                        <option *ngFor="let val of timeList" [value]="val.time">{{ val.time }} - Available Tables: {{ val.tables }}</option>
                     </select>
                 </div>
                 <div class="step-control">

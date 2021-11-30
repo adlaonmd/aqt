@@ -33,14 +33,9 @@
     select {
       background: transparent;
       border: none;
-      border-bottom: 0.25em solid #314a9a;
+      border-bottom: 0.0625em solid #000;
       color: #000;
       font-weight: 700;
-    }
-
-    input::placeholder {
-      color: #808080;
-      font-weight: 400;
     }
 
     option {
@@ -55,7 +50,7 @@
 
       input {
         cursor: pointer;
-        background: #314a9a;
+        background: #2400fd;
         border: none;
         color: #fff;
         font-weight: 700;
@@ -68,11 +63,11 @@
       }
 
       input:disabled {
-        background: rgba(49, 74, 154, 80%);
+        background: rgba(36, 0, 253, 40%);
       }
 
       input:hover:disabled {
-        background: rgba(49, 74, 154, 80%);
+        background: rgba(36, 0, 253, 40%);
       }
     }
 

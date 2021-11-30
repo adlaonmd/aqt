@@ -17,7 +17,7 @@
     max-width: 600px;
 
     #go-back {
-      background: #314a9a;
+      background: #2400fd;
       color: #fff;
       font-weight: 700;
       padding: 0.25em 1em;
@@ -41,7 +41,7 @@
 
       input[type="submit"] {
         cursor: pointer;
-        background: #314a9a;
+        background: #2400fd;
         border: none;
         color: #fff;
         font-weight: 700;
@@ -54,11 +54,11 @@
       }
 
       input[type="submit"]:disabled {
-        background: rgba(49, 74, 154, 80%);
+        background: rgba(36, 0, 253, 40%);
       }
 
       input[type="submit"]:hover:disabled {
-        background: rgba(49, 74, 154, 80%);
+        background: rgba(36, 0, 253, 40%);
       }
     }
 
