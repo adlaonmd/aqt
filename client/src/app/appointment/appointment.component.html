@@ -76,7 +76,7 @@
                 </div>
                 <div>
                     <label for="group-size">Group Size <br/><small>(including yourself | 1 table = {{ personsPerTable }} {{ personsPerTable > 1 ? "persons" : "person" }})</small></label>
-                    <input type="number" name="group-sizer" id="group-size" placeholder="Minimum of 1; Maximum of 20" min="1" max="20" formControlName="groupSize">
+                    <input type="number" name="group-sizer" id="group-size" placeholder="Enter size of group" min="1" max="20" formControlName="groupSize">
                     <div *ngIf="groupSize?.invalid && (groupSize?.dirty || groupSize?.touched)">
                         <small *ngIf="groupSize?.errors?.['required']" class="input-error">Group size is required</small>
                         <small *ngIf="groupSize?.errors?.['min']" class="input-error">Minimum group size of 1</small>
