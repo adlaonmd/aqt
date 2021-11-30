@@ -5,6 +5,8 @@ import { ScheduleService } from '../services/schedule.service';
 import { months } from '../months';
 import { AppointmentService } from '../services/appointment.service';
 
+import { convertTime12to24 } from '../utils/time';
+
 const emailRegex: RegExp =
   /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
 const phoneRegex: RegExp = /^(09)\d{9}$/gm;
@@ -19,6 +21,8 @@ export class AppointmentComponent implements OnInit {
   currentYear: string = new Date().getFullYear().toString();
   currentMonth: number = new Date().getMonth();
   currentDay: number = new Date().getDate();
+  currentHour: number = new Date().getHours();
+  currentMinutes: number = new Date().getMinutes();
   daysInMonth!: number;
   yearList: string[] = [this.currentYear, `${(new Date().getFullYear() + 1).toString()}`];
   monthList!: string[];
@@ -194,7 +198,9 @@ export class AppointmentComponent implements OnInit {
           Object.values(schedule).map((sched: any) => {
             Object.values(sched.schedule).map((result: any) => {
               if (result.slots !== 0) {
-                this.timeList.push({ time: result.time, tables: result.tables });
+                if (convertTime12to24(result.time) > this.currentHour && this.currentMinutes <= 40) {
+                  this.timeList.push({ time: result.time, tables: result.tables });
+                }
               }
             });
           });
