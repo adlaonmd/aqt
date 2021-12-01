@@ -78,7 +78,7 @@ const addAppointment = (req, res) => {
                       const appointment_id = result.id.slice(-6).toUpperCase();
 
                       //Update the newly created document with its appointment_id
-                      Appointment.updateOne({ _id: result.id }, { $set: { appointment_id } })
+                      Appointment.findOneAndUpdate({ _id: result.id }, { $set: { appointment_id } })
                         .then((result) => {
                           return res.send({ ...result, appointment_id });
                         })
