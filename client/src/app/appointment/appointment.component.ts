@@ -127,11 +127,23 @@ export class AppointmentComponent implements OnInit {
       if (year !== '') {
         this.monthList = [];
 
-        Object.values(schedule).map((sched: any) => {
-          this.monthList.push(sched.month);
-        });
+        if (year === this.currentYear) {
+          Object.values(schedule).map((sched: any) => {
+            this.monthList.push(sched.month);
+          });
 
-        this.monthList.sort(function (a: any, b: any) {
+          for (let i = 0; i < this.currentMonth; i++) {
+            this.monthList = this.monthList.filter((list) => {
+              return list !== months[i];
+            });
+          }
+        } else {
+          Object.values(schedule).map((sched: any) => {
+            this.monthList.push(sched.month);
+          });
+        }
+
+        this.monthList.sort((a: any, b: any) => {
           return months.indexOf(a) - months.indexOf(b);
         });
       }
