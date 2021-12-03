@@ -199,7 +199,7 @@ export class AppointmentComponent implements OnInit {
         if (day !== '') {
           Object.values(schedule).map((sched: any) => {
             Object.values(sched.schedule).map((result: any) => {
-              if (result.slots !== 0) {
+              if (result.tables !== 0) {
                 const { year, month, day } = this.appointmentForm.value;
                 if (
                   year === this.currentYear &&
