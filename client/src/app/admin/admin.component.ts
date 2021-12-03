@@ -63,6 +63,7 @@ export class AdminComponent implements OnInit {
     let month = months[this.currentMonth];
     let yesterday = this.currentDay - 1;
     if (yesterday < 1) {
+      this.daysInMonth = new Date(parseInt(this.currentYear), this.currentMonth, 0).getDate();
       yesterday = this.daysInMonth;
       month = months[this.currentMonth - 1];
     }
