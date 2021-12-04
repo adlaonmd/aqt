@@ -1,7 +1,13 @@
 <div id="home">
-    <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
-    <div id="button-container">
-        <button routerLink="/appointment">Set an appointment</button>
-        <button routerLink="/find-appointment">Find your appointment</button>
+    <div *ngIf="auth.isLoading$ | async; else display">
+        <img src="../../assets/puff.svg" alt="Loading" />
     </div>
+    <ng-template #display>
+        <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
+        <div id="button-container">
+            <button routerLink="/appointment">Set an appointment</button>
+            <button routerLink="/find-appointment">Find your appointment</button>
+        </div>
+    </ng-template>
+
 </div>

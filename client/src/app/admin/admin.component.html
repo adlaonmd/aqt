@@ -5,16 +5,18 @@
             <ul>
                 <li><a routerLink="schedule" routerLinkActive="active-link">Schedule</a></li>
                 <li><a routerLink="appointment" routerLinkActive="active-link">Appointment</a></li>
+                <li></li>
             </ul>
         </nav>
     </header>
     <div class="content">
         <div *ngIf="this.route.children.length === 0">
-            <div id="greetings">
+            <div id="greetings" *ngIf="auth.user$ | async as user">
                 <p>
-                    {{ currentTime <= 11 ? "It's a great morning" : ""}}
-                    {{ currentTime <= 17 ? "What an awesome afternoon" : ""}}
-                    {{ currentTime <= 24 ? "Have a nice evening" : ""}}
+                    Hello {{ user.name }}! 
+                    {{ currentTime >= 0 && currentTime <= 11 ? "It's a great morning" : ""}}
+                    {{ currentTime >= 12 && currentTime <= 17 ? "What an awesome afternoon" : ""}}
+                    {{ currentTime >= 18 && currentTime <= 24 ? "Have a nice evening" : ""}}
                 </p>
                 <p>Today is <strong>{{ currentMonthFormatted }} {{ currentDay }}, {{ currentYear }}</strong></p>
             </div>

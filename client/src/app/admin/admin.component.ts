@@ -6,6 +6,8 @@ import { AppointmentStatus } from '../enums/appointment_status';
 import { months } from '../months';
 import { Appointment } from '../interfaces/appointment';
 
+import { AuthService } from '@auth0/auth0-angular';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -22,7 +24,7 @@ export class AdminComponent implements OnInit {
   currentDay: number = new Date().getDate();
   currentTime: number = new Date().getHours();
 
-  constructor(public route: ActivatedRoute, private appointmentService: AppointmentService) {}
+  constructor(public route: ActivatedRoute, private appointmentService: AppointmentService, public auth: AuthService) {}
 
   ngOnInit(): void {
     this.getAppointmentsToday();
