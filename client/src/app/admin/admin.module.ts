@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -16,8 +17,8 @@ import { AppointmentModule } from './appointment/appointment.module';
     ScheduleModule,
     AppointmentModule,
     AuthModule.forRoot({
-      domain: 'dev-kot70-ns.us.auth0.com',
-      clientId: 'FZSl4gpAz7mlqjKewshWbIYvzLgF184H',
+      domain: environment.auth0_domain,
+      clientId: environment.auth0_clientId,
     }),
   ],
 })
