@@ -34,6 +34,21 @@
     .active-link:hover {
       border-bottom: 0.125em solid #2400fd;
     }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: #e52321;
+      padding: 0.5em 1em;
+      color: #fff;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    button:hover {
+      background: #000;
+    }
   }
 
   .content {

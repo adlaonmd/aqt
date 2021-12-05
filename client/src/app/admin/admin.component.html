@@ -1,41 +1,44 @@
 <div id="admin">
-    <header>
-        <a routerLink="../admin"><img src="../../assets/busan_yinyang_logo.png" alt="Busan PH" width="40px" /></a>
-        <nav>
-            <ul>
-                <li><a routerLink="schedule" routerLinkActive="active-link">Schedule</a></li>
-                <li><a routerLink="appointment" routerLinkActive="active-link">Appointment</a></li>
-                <li></li>
-            </ul>
-        </nav>
-    </header>
-    <div class="content">
-        <div *ngIf="this.route.children.length === 0">
-            <div id="greetings" *ngIf="auth.user$ | async as user">
-                <p>
-                    Hello {{ user.name }}! 
-                    {{ currentTime >= 0 && currentTime <= 11 ? "It's a great morning" : ""}}
-                    {{ currentTime >= 12 && currentTime <= 17 ? "What an awesome afternoon" : ""}}
-                    {{ currentTime >= 18 && currentTime <= 24 ? "Have a nice evening" : ""}}
-                </p>
-                <p>Today is <strong>{{ currentMonthFormatted }} {{ currentDay }}, {{ currentYear }}</strong></p>
-            </div>
-            <h3>Appointments</h3>
-            <div id="overview">
-                <div class="card">
-                    <label>Today</label>
-                    <p>{{ appointmentsToday }}</p>
-                </div>
-                <div class="card">
-                    <label>Tomorrow</label>
-                    <p>{{ appointmentsTomorrow }}</p>
-                </div>
-                <div class="card">
-                    <label>Yesterday</label>
-                    <p>{{ appointmentsYesterday }}</p>
-                </div>
-            </div>
+  <header>
+    <a routerLink="../admin"><img src="../../assets/busan_yinyang_logo.png" alt="Busan PH" width="40px" /></a>
+    <nav>
+      <ul>
+        <li><a routerLink="schedule" routerLinkActive="active-link">Schedule</a></li>
+        <li><a routerLink="appointment" routerLinkActive="active-link">Appointment</a></li>
+        <li></li>
+      </ul>
+    </nav>
+    <button (click)="logout()">Logout</button>
+  </header>
+  <div class="content">
+    <div *ngIf="this.route.children.length === 0">
+      <div id="greetings" *ngIf="auth.user$ | async as user">
+        <p>
+          Hello {{ user.name }}!
+          {{ currentTime >= 0 && currentTime <= 11 ? "It's a great morning" : "" }}
+          {{ currentTime >= 12 && currentTime <= 17 ? "What an awesome afternoon" : "" }}
+          {{ currentTime >= 18 && currentTime <= 24 ? "Have a nice evening" : "" }}
+        </p>
+        <p>
+          Today is <strong>{{ currentMonthFormatted }} {{ currentDay }}, {{ currentYear }}</strong>
+        </p>
+      </div>
+      <h3>Appointments</h3>
+      <div id="overview">
+        <div class="card">
+          <label>Today</label>
+          <p>{{ appointmentsToday }}</p>
         </div>
-        <router-outlet></router-outlet>
+        <div class="card">
+          <label>Tomorrow</label>
+          <p>{{ appointmentsTomorrow }}</p>
+        </div>
+        <div class="card">
+          <label>Yesterday</label>
+          <p>{{ appointmentsYesterday }}</p>
+        </div>
+      </div>
     </div>
+    <router-outlet></router-outlet>
+  </div>
 </div>

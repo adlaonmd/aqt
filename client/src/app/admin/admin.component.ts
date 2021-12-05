@@ -32,6 +32,10 @@ export class AdminComponent implements OnInit {
     this.getAppointmentsYesterday();
   }
 
+  logout(): void {
+    this.auth.logout();
+  }
+
   getAppointmentsToday(): void {
     this.appointmentService
       .getAppointmentsByDay(this.currentYear, months[this.currentMonth], this.currentDay.toString())
