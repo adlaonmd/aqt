@@ -218,7 +218,11 @@ export class AppointmentComponent implements OnInit {
                   month === months[this.currentMonth] &&
                   day === this.currentDay.toString()
                 ) {
-                  if (convertTime12to24(result.time) > this.currentHour && this.currentMinutes <= 40) {
+                  if (convertTime12to24(result.time) > this.currentHour) {
+                    if (convertTime12to24(result.time) - 1 === this.currentHour && this.currentMinutes >= 40) {
+                      return;
+                    }
+
                     this.timeList.push({ time: result.time, tables: result.tables });
                   }
                 } else {

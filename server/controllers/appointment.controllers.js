@@ -1,6 +1,8 @@
 const Appointment = require("../models/appointment");
 const AvailableSchedule = require("../models/availableSchedule");
 
+const sg = require("../utils/sendgrid");
+
 const Status = {
   WAITING: "WAITING",
   ARRIVED: "ARRIVED",
@@ -77,6 +79,9 @@ const addAppointment = (req, res) => {
                       //Get the last 6 characters of the ID and set it as appointment_id to be easily reference later
                       const appointment_id = result.id.slice(-6).toUpperCase();
 
+                      //Process email notifications
+                      sg.sendAppointmentSetEmail(email, firstName, year, month, day, time, appointment_id);
+
                       //Update the newly created document with its appointment_id
                       Appointment.findOneAndUpdate({ _id: result.id }, { $set: { appointment_id } })
                         .then((result) => {
@@ -127,7 +132,11 @@ const getAppointment = (req, res) => {
 
   Appointment.aggregate([{ $match: { appointment_id } }])
     .then((result) => {
-      return res.send(result);
+      if (result.length !== 0) {
+        return res.send(result[0]);
+      }
+
+      return res.status(406).json("No appointment found");
     })
     .catch((error) => {
       console.error(error);
@@ -161,7 +170,7 @@ const getAppointmentsByDay = (req, res) => {
 };
 
 const cancelAppointment = (req, res) => {
-  const { year, month, day, time, groupSize, appointment_id } = req.body;
+  const { year, month, day, time, groupSize, appointment_id, batch_id } = req.body;
 
   AvailableSchedule.aggregate([
     {

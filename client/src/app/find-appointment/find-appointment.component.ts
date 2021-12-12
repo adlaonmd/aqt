@@ -24,17 +24,15 @@ export class FindAppointmentComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    this.appointmentService
-      .getAppointment(this.findAppointmentForm.value.appointment_id.toUpperCase())
-      .subscribe((res: any) => {
-        if (res.length === 0) {
-          this.appointment = [];
-        } else {
-          this.appointment = res[0];
-        }
-
+    this.appointmentService.getAppointment(this.findAppointmentForm.value.appointment_id.toUpperCase()).subscribe(
+      (res: any) => {
+        this.appointment = res;
         this.findAppointment = true;
-      });
+      },
+      (err) => {
+        this.appointment = null;
+      }
+    );
   }
 
   cancelAppointment(): void {

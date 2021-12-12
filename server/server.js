@@ -4,6 +4,8 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
 
+const db = require("./utils/db");
+
 //API routes
 const availableScheduleRoutes = require("./routes/availableSchedule.routes");
 const appointmentRoutes = require("./routes/appointment.routes");
@@ -12,11 +14,12 @@ const appointmentRoutes = require("./routes/appointment.routes");
 app.set("json spaces", 4);
 app.use(express.json());
 app.use(cors());
+app.use(express.static("assets"));
 
 //Establish connection to database
-require("./utils/db").connectDb();
+db.connectDb();
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   res.send("Hello, AQT API");
 });
 

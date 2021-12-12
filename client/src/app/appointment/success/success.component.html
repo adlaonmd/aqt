@@ -1,10 +1,13 @@
 <div id="success">
-    <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
-    <div id="info">
-        <h2>Your appointment is set!</h2>
-        <p id="message">Appointment ID: {{ appointment_id }}</p>
-        <p id="note">We will send you an SMS/email notification <strong>30 minutes</strong> before your appointment</p>
-        <button routerLink="/">Home</button>
-        <button class="cancel" (click)="cancelAppointment()">Cancel Appointment</button>
-    </div>
+  <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
+  <div id="info">
+    <h2>Your appointment is set!</h2>
+    <p id="message">Appointment ID: {{ appointment_id }}</p>
+    <p id="note">
+      <strong>Please keep your appointment ID</strong> as this will serve as your pass. We have also sent a copy to your
+      email address.
+    </p>
+    <button routerLink="/">Home</button>
+    <button class="cancel" (click)="cancelAppointment()">Cancel Appointment</button>
+  </div>
 </div>
