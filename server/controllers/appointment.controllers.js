@@ -79,7 +79,7 @@ const addAppointment = (req, res) => {
                       //Get the last 6 characters of the ID and set it as appointment_id to be easily reference later
                       const appointment_id = result.id.slice(-6).toUpperCase();
 
-                      //Process email notifications
+                      //Process email notification
                       sg.sendAppointmentSetEmail(email, firstName, year, month, day, time, appointment_id);
 
                       //Update the newly created document with its appointment_id
@@ -194,8 +194,13 @@ const cancelAppointment = (req, res) => {
             { $inc: { "schedule.$.tables": newTableSize } }
           )
             .then((result) => {
-              Appointment.updateOne({ appointment_id }, { status: Status.CANCELLED })
+              Appointment.findOneAndUpdate({ appointment_id }, { status: Status.CANCELLED })
                 .then((result) => {
+                  const { email, firstName, year, month, day, time } = result;
+
+                  //Process email notifcation
+                  sg.cancelAppointmentEmail(email, firstName, year, month, day, time);
+
                   return res.json("Appointment cancelled");
                 })
                 .catch((error) => {

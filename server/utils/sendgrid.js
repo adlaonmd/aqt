@@ -47,54 +47,43 @@ function sendAppointmentSetEmail(email, firstName, year, month, day, time, appoi
     });
 }
 
-// function scheduleAppointmentReminderEmail(email, firstName, year, month, day, time, appointmentId, batchId) {
-//   //CODE FOR SCHEDULING EMAIL NOTIF 30 MINS BEFORE APPOINTMENT
-//   const appointment_date = new Date(`${month} ${day}, ${year} ${time}`);
-//   const notif_date = new Date(`${month} ${day}, ${year} ${appointment_date.getHours() - 1}:30`);
-//   const notif_unix = Math.round(notif_date.getTime() / 1000);
+function cancelAppointmentEmail(email, firstName, year, month, day, time) {
+  const msg = {
+    to: email,
+    from: "appquatech@gmail.com",
+    subject: "AQT - Appointment Cancelled",
+    html: `
+      <div style="padding: 2rem;">
+        <div style="width: 100%; max-width: 500px; border: 1px solid #000; margin: auto;">
+          <div style="padding: 1rem 2rem;">
+            <img src="cid:busan_logo_cid" alt="Busan PH" style="display: block; width: 100%; max-width: 400px; margin: auto;" />
+            <p>Hello <strong>${firstName}</strong>!</p>
+            <p>Your appointment on <strong>${month} ${day}, ${year} - ${time}</strong> has been cancelled.</p>
+            <p>You can set another appointment if you need to.</p>
+            <p>Thank you!</p>
+          </div>
+        </div>
+      </div>
+    `,
+    attachments: [
+      {
+        filename: "busan_logo.png",
+        contentType: "image/png",
+        content_id: "busan_logo_cid",
+        content: busanLogoBase64,
+        disposition: "inline",
+      },
+    ],
+  };
 
-//   const msg = {
-//     to: email,
-//     from: "appquatech@gmail.com",
-//     subject: "AQT - Appointment Reminder",
-//     html: `
-//       <div style="padding: 2rem;">
-//         <div style="width: 100%; max-width: 500px; border: 1px solid #000; margin: auto;">
-//           <div style="padding: 1rem 2rem;">
-//             <img src="cid:busan_logo_cid" alt="Busan PH" style="display: block; width: 100%; max-width: 400px; margin: auto;" />
-//             <p>Hello <strong>${firstName}</strong>!</p>
-//             <p>This is a reminder for your appointment today at <strong>${time}</strong></p>
-//             <p>Your appointment ID is: <strong>${appointmentId}</strong></p>
-//             <p>If you need to cancel your appointment,</p>
-//             <a style="background: #2400fd; font-size: 1rem; padding: 0.5em 1em; font-weight: 700; color: #fff; text-decoration: none;" href="https://google.com">CLICK HERE</a>
-//             <p>See you!</p>
-//           </div>
-//         </div>
-//       </div>
-//     `,
-//     attachments: [
-//       {
-//         filename: "busan_logo.png",
-//         contentType: "image/png",
-//         content_id: "busan_logo_cid",
-//         content: busanLogoBase64,
-//         disposition: "inline",
-//       },
-//     ],
-//     send_at: notif_unix,
-//     batch_id: batchId,
-//   };
-
-//   sgMail
-//     .send(msg)
-//     .then(() => {
-//       console.log("Appointment Reminder Email Scheduled");
-//     })
-//     .catch((error) => {
-//       console.error(error.response.body.errors);
-//     });
-// }
-
-function cancelAppointmentEmail() {}
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log("Appontment Cancelled Email Sent");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
 module.exports = { sendAppointmentSetEmail, cancelAppointmentEmail };
