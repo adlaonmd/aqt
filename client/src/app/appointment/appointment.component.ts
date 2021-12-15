@@ -18,6 +18,7 @@ const phoneRegex: RegExp = /^(09)\d{9}$/gm;
 })
 export class AppointmentComponent implements OnInit {
   step: number = 1;
+  submitted: boolean = false;
   currentYear: string = new Date().getFullYear().toString();
   currentMonth: number = new Date().getMonth();
   currentDay: number = new Date().getDate();
@@ -93,6 +94,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   handleSubmit(): void {
+    this.submitted = true;
     this.appointmentService.addAppointment(this.appointmentForm.value).subscribe(
       (res: any) => {
         this.appointmentId = res.appointment_id;

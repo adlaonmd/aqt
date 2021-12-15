@@ -1,126 +1,178 @@
 <div id="appointment">
-    <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
-    <form id="appointment-form" [formGroup]="appointmentForm" (ngSubmit)="handleSubmit()">
-        <div id="step-1" [class.hidden]="step !== 1">
-            <h3>Choose your schedule</h3>
-            <div class="form-field">
-                <div>
-                    <label for="year">Year</label>
-                    <select name="year" id="year" formControlName="year">
-                        <option value="" selected disabled>Select a year</option>
-                        <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="month">Month</label>
-                    <select name="month" id="month" formControlName="month">
-                        <option value="" selected disabled>Select a month</option>
-                        <option *ngIf="appointmentForm.value.year !== '' && monthList && monthList.length === 0" value="" disabled>No available month</option>
-                        <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="day">Day</label>
-                    <select name="day" id="day" formControlName="day">
-                        <option value="" selected disabled>Select a day</option>
-                        <option *ngIf="appointmentForm.value.month !== '' && dayList && dayList.length === 0" value="" disabled>No available day</option>
-                        <option *ngFor="let day of dayList" [value]="day">{{ day }}</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="time">Time</label>
-                    <select name="time" id="time" formControlName="time">
-                        <option value="" selected disabled>Select a time</option>
-                        <option *ngIf="appointmentForm.value.day !== '' && timeList && timeList.length === 0" value="" disabled>No available time</option>
-                        <option *ngFor="let val of timeList" [value]="val.time">{{ val.time }} - Available Tables: {{ val.tables }}</option>
-                    </select>
-                </div>
-                <div class="step-control">
-                    <input type="button" value="Home" routerLink="/">
-                    <input type="button" value="Next" (click)="nextStep()" [disabled]="appointmentForm.value.time === ''">
-                </div>
-            </div>
+  <img id="logo" src="../../assets/busan_logo.png" alt="Busan PH" />
+  <form id="appointment-form" [formGroup]="appointmentForm" (ngSubmit)="handleSubmit()">
+    <div id="step-1" [class.hidden]="step !== 1">
+      <h3>Choose your schedule</h3>
+      <div class="form-field">
+        <div>
+          <label for="year">Year</label>
+          <select name="year" id="year" formControlName="year">
+            <option value="" selected disabled>Select a year</option>
+            <option *ngFor="let year of yearList" [value]="year">{{ year }}</option>
+          </select>
         </div>
-        <div id="step-2" [class.hidden]="step !== 2">
-            <h3>Tell us about you and your company</h3>
-            <div class="form-field">
-                <div>
-                    <label for="first-name">First Name</label>
-                    <input type="text" name="first-name" id="first-name" placeholder="Enter your first name" formControlName="firstName">
-                    <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
-                        <small class="input-error">First name is required</small>
-                    </div>
-                </div>
-                <div>
-                    <label for="last-name">Last Name</label>
-                    <input type="text" name="last-name" id="last-name" placeholder="Enter your last name" formControlName="lastName">
-                    <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
-                        <small class="input-error">Last name is required</small>
-                    </div>
-                </div>
-                <div>
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email address" formControlName="email">
-                    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-                        <small *ngIf="email?.errors?.['required']" class="input-error">Email address is required</small>
-                        <small *ngIf="email?.errors?.['pattern']" class="input-error">Invalid email address</small>
-                    </div>
-                </div>
-                <div>
-                    <label for="phone-number">Phone Number</label>
-                    <input type="tel" name="phone-number" id="phone-number" placeholder="Ex. 09xxxxxxxxx" formControlName="phoneNumber">
-                    <div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)">
-                        <small *ngIf="phoneNumber?.errors?.['required']" class="input-error">Phone number is required</small>
-                        <small *ngIf="phoneNumber?.errors?.['pattern']" class="input-error">Invalid phone number</small>
-                    </div>
-                </div>
-                <div>
-                    <label for="group-size">Group Size <br/><small>(including yourself | 1 table = {{ personsPerTable }} {{ personsPerTable > 1 ? "persons" : "person" }})</small></label>
-                    <input type="number" name="group-sizer" id="group-size" placeholder="Enter size of group" formControlName="groupSize">
-                    <div *ngIf="groupSize?.invalid && (groupSize?.dirty || groupSize?.touched)">
-                        <small *ngIf="groupSize?.errors?.['required']" class="input-error">Group size is required</small>
-                        <small *ngIf="groupSize?.errors?.['min']" class="input-error">Minimum group size of 1</small>
-                        <small *ngIf="groupSize?.errors?.['max']" class="input-error">Maximum group size of {{ maxPersons }}</small>
-                    </div>
-                </div>
-                <div class="step-control">
-                    <input type="button" value="Back" (click)="prevStep()">
-                    <input type="button" value="Next" (click)="nextStep()" [disabled]="!appointmentForm.valid">
-                </div>
-            </div>
+        <div>
+          <label for="month">Month</label>
+          <select name="month" id="month" formControlName="month">
+            <option value="" selected disabled>Select a month</option>
+            <option *ngIf="appointmentForm.value.year !== '' && monthList && monthList.length === 0" value="" disabled>
+              No available month
+            </option>
+            <option *ngFor="let month of monthList" [value]="month">{{ month }}</option>
+          </select>
         </div>
-        <div id="step-3" [class.hidden]="step !== 3">
-            <h3>Confirm the details you provided</h3>
-            <div class="form-field">
-                <div class="confirm-info">
-                    <p>First Name:</p>
-                    <p class="info"><strong>{{ appointmentForm.value.firstName }}</strong></p>
-                </div>
-                <div class="confirm-info">
-                    <p>Last Name:</p>
-                    <p class="info"><strong>{{ appointmentForm.value.lastName }}</strong></p>
-                </div>
-                <div class="confirm-info">
-                    <p>Email:</p>
-                    <p class="info"><strong>{{ appointmentForm.value.email }}</strong></p>
-                </div>
-                <div class="confirm-info">
-                    <p>Phone Number:</p>
-                    <p class="info"><strong>{{ appointmentForm.value.phoneNumber }}</strong></p>
-                </div>
-                <div class="confirm-info">
-                    <p>Schedule:</p>
-                    <p class="info"><strong>{{ appointmentForm.value.month }} {{ appointmentForm.value.day }}, {{ appointmentForm.value.year }} - {{ appointmentForm.value.time }}</strong></p>
-                </div>
-                <div class="confirm-info">
-                    <p>Group Size <small>(including yourself)</small>:</p>
-                    <p class="info"><strong>{{ appointmentForm.value.groupSize }}</strong></p>
-                </div>
-                <div class="step-control">
-                    <input type="button" value="Back" (click)="prevStep()">
-                    <input type="submit" value="Submit">
-                </div>
-            </div>
+        <div>
+          <label for="day">Day</label>
+          <select name="day" id="day" formControlName="day">
+            <option value="" selected disabled>Select a day</option>
+            <option *ngIf="appointmentForm.value.month !== '' && dayList && dayList.length === 0" value="" disabled>
+              No available day
+            </option>
+            <option *ngFor="let day of dayList" [value]="day">{{ day }}</option>
+          </select>
         </div>
-    </form>
+        <div>
+          <label for="time">Time</label>
+          <select name="time" id="time" formControlName="time">
+            <option value="" selected disabled>Select a time</option>
+            <option *ngIf="appointmentForm.value.day !== '' && timeList && timeList.length === 0" value="" disabled>
+              No available time
+            </option>
+            <option *ngFor="let val of timeList" [value]="val.time">
+              {{ val.time }} - Available Tables: {{ val.tables }}
+            </option>
+          </select>
+        </div>
+        <div class="step-control">
+          <input type="button" value="Home" routerLink="/" />
+          <input type="button" value="Next" (click)="nextStep()" [disabled]="appointmentForm.value.time === ''" />
+        </div>
+      </div>
+    </div>
+    <div id="step-2" [class.hidden]="step !== 2">
+      <h3>Tell us about you and your company</h3>
+      <div class="form-field">
+        <div>
+          <label for="first-name">First Name</label>
+          <input
+            type="text"
+            name="first-name"
+            id="first-name"
+            placeholder="Enter your first name"
+            formControlName="firstName"
+          />
+          <div *ngIf="firstName!.invalid && (firstName!.dirty || firstName!.touched)">
+            <small class="input-error">First name is required</small>
+          </div>
+        </div>
+        <div>
+          <label for="last-name">Last Name</label>
+          <input
+            type="text"
+            name="last-name"
+            id="last-name"
+            placeholder="Enter your last name"
+            formControlName="lastName"
+          />
+          <div *ngIf="lastName!.invalid && (lastName!.dirty || lastName!.touched)">
+            <small class="input-error">Last name is required</small>
+          </div>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Enter your email address" formControlName="email" />
+          <div *ngIf="email!.invalid && (email!.dirty || email!.touched)">
+            <small *ngIf="email!.errors?.['required']" class="input-error">Email address is required</small>
+            <small *ngIf="email!.errors?.['pattern']" class="input-error">Invalid email address</small>
+          </div>
+        </div>
+        <div>
+          <label for="phone-number">Phone Number</label>
+          <input
+            type="tel"
+            name="phone-number"
+            id="phone-number"
+            placeholder="Ex. 09xxxxxxxxx"
+            formControlName="phoneNumber"
+          />
+          <div *ngIf="phoneNumber!.invalid && (phoneNumber!.dirty || phoneNumber!.touched)">
+            <small *ngIf="phoneNumber!.errors?.['required']" class="input-error">Phone number is required</small>
+            <small *ngIf="phoneNumber!.errors?.['pattern']" class="input-error">Invalid phone number</small>
+          </div>
+        </div>
+        <div>
+          <label for="group-size"
+            >Group Size <br /><small
+              >(including yourself | 1 table = {{ personsPerTable }}
+              {{ personsPerTable > 1 ? "persons" : "person" }})</small
+            ></label
+          >
+          <input
+            type="number"
+            name="group-size"
+            id="group-size"
+            placeholder="Enter size of group"
+            formControlName="groupSize"
+          />
+          <div *ngIf="groupSize!.invalid && (groupSize!.dirty || groupSize!.touched)">
+            <small *ngIf="groupSize!.errors?.['required']" class="input-error">Group size is required</small>
+            <small *ngIf="groupSize!.errors?.['min']" class="input-error">Minimum group size of 1</small>
+            <small *ngIf="groupSize!.errors?.['max']" class="input-error">Maximum group size of {{ maxPersons }}</small>
+          </div>
+        </div>
+        <div class="step-control">
+          <input type="button" value="Back" (click)="prevStep()" />
+          <input type="button" value="Next" (click)="nextStep()" [disabled]="!appointmentForm.valid" />
+        </div>
+      </div>
+    </div>
+    <div id="step-3" [class.hidden]="step !== 3">
+      <h3>Confirm the details you provided</h3>
+      <div class="form-field">
+        <div class="confirm-info">
+          <p>First Name:</p>
+          <p class="info">
+            <strong>{{ appointmentForm.value.firstName }}</strong>
+          </p>
+        </div>
+        <div class="confirm-info">
+          <p>Last Name:</p>
+          <p class="info">
+            <strong>{{ appointmentForm.value.lastName }}</strong>
+          </p>
+        </div>
+        <div class="confirm-info">
+          <p>Email:</p>
+          <p class="info">
+            <strong>{{ appointmentForm.value.email }}</strong>
+          </p>
+        </div>
+        <div class="confirm-info">
+          <p>Phone Number:</p>
+          <p class="info">
+            <strong>{{ appointmentForm.value.phoneNumber }}</strong>
+          </p>
+        </div>
+        <div class="confirm-info">
+          <p>Schedule:</p>
+          <p class="info">
+            <strong
+              >{{ appointmentForm.value.month }} {{ appointmentForm.value.day }}, {{ appointmentForm.value.year }} -
+              {{ appointmentForm.value.time }}</strong
+            >
+          </p>
+        </div>
+        <div class="confirm-info">
+          <p>Group Size <small>(including yourself)</small>:</p>
+          <p class="info">
+            <strong>{{ appointmentForm.value.groupSize }}</strong>
+          </p>
+        </div>
+        <div class="step-control">
+          <input type="button" value="Back" (click)="prevStep()" />
+          <input type="submit" value="Submit" [disabled]="submitted" />
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
