@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Appointment } from '../interfaces/appointment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-const APPOINTMENTS_URL = 'http://localhost:3000/api/appointments';
+const APPOINTMENTS_URL = `${environment.backend_api_url}/api/appointments`;
 
 @Injectable({
   providedIn: 'root',

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AvailableSchedule } from '../interfaces/available-schedule';
+import { environment } from 'src/environments/environment';
 
-const AVAILABLE_SCHED_URL = 'http://localhost:3000/api/available_schedule';
+const AVAILABLE_SCHED_URL = `${environment.backend_api_url}/api/available_schedule`;
 
 @Injectable({
   providedIn: 'root',
