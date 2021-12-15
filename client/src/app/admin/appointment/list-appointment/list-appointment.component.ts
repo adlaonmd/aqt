@@ -17,7 +17,7 @@ export class ListAppointmentComponent implements OnInit {
   constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
-    this.appointmentService.currentAppointmentList.subscribe((res) => {
+    this.appointmentService.currentAppointmentList.subscribe((res: any) => {
       this.appointmentList = res;
 
       this.getNumberOfAppointments();

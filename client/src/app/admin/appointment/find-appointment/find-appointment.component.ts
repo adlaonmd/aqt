@@ -20,9 +20,11 @@ export class FindAppointmentComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    this.appointmentService.getAppointment(this.findAppointmentForm.value.appointment_id).subscribe((res) => {
-      this.appointmentService.setAppointmentList(res);
-      this.findAppointment = true;
-    });
+    this.appointmentService
+      .getAppointment(this.findAppointmentForm.value.appointment_id.toUpperCase())
+      .subscribe((res) => {
+        this.appointmentService.setAppointmentList(res);
+        this.findAppointment = true;
+      });
   }
 }

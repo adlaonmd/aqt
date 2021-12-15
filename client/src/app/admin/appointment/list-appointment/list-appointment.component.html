@@ -1,14 +1,23 @@
 <div *ngIf="appointmentList" id="list-appointment">
-    <div *ngIf="appointmentList.length === 0; else displayList">
-        No appointments found
+  <div *ngIf="appointmentList.length === 0; else displayList">No appointments found</div>
+  <ng-template #displayList>
+    <div id="appointment-stats">
+      <small
+        ><strong>{{ totalAppointments }}</strong>
+        {{ totalAppointments > 1 ? "appointments" : "appointment" }} found</small
+      >
+      <small
+        ><strong>{{ waitingAppointments }}</strong> waiting | <strong>{{ arrivedAppointments }}</strong> arrived |
+        <strong>{{ cancelledAppointments }}</strong> cancelled</small
+      >
     </div>
-    <ng-template #displayList>
-        <div id="appointment-stats">
-            <small><strong>{{ totalAppointments }}</strong> {{ totalAppointments > 1 ? "appointments" : "appointment" }} found</small>
-            <small><strong>{{ waitingAppointments }}</strong> waiting | <strong>{{ arrivedAppointments }}</strong> arrived | <strong>{{ cancelledAppointments }}</strong> cancelled</small>
-        </div>
-        <div *ngFor="let appointment of appointmentList" class="appointment">
-            <app-list-appointment-item [appointment]="appointment"></app-list-appointment-item>
-        </div>
+    <div *ngIf="appointmentList.length === 0 || appointmentList.length === undefined; else listAppointment">
+      <app-list-appointment-item [appointment]="appointmentList"></app-list-appointment-item>
+    </div>
+    <ng-template #listAppointment>
+      <div *ngFor="let appointment of appointmentList" class="appointment">
+        <app-list-appointment-item [appointment]="appointment"></app-list-appointment-item>
+      </div>
     </ng-template>
+  </ng-template>
 </div>
