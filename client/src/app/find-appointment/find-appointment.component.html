@@ -59,9 +59,7 @@
               <p class="no-of-tables">
                 No. of Tables: <strong>{{ appointment.noOfTables }}</strong>
               </p>
-              <p class="priority">
-                Are you/with a PWD/Senior Citizen? <strong>{{ appointment.priority ? "Yes" : "No" }}</strong>
-              </p>
+              <p class="priority" *ngIf="appointment.priority">I'm a/with PWD/Senior Citizen</p>
             </div>
             <div class="footer">
               <p class="status" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</p>

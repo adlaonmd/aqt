@@ -85,6 +85,18 @@
       .input-error {
         color: #e52321;
       }
+
+      .priority-field {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1em;
+
+        #priority {
+          width: min-content;
+          transform: scale(1.5);
+        }
+      }
     }
 
     .confirm-info {
