@@ -120,6 +120,13 @@
             <small *ngIf="groupSize!.errors?.['max']" class="input-error">Maximum group size of {{ maxPersons }}</small>
           </div>
         </div>
+        <div>
+          <label for="priority">Are you/with a PWD/Senior Citizen?</label>
+          <input type="checkbox" name="priority" id="priority" formControlName="priority" />
+          <div *ngIf="priority!.invalid && (priority!.dirty || priority!.touched)">
+            <small *ngIf="priority!.errors?.['required']" class="input-error">Please check or uncheck</small>
+          </div>
+        </div>
         <div class="step-control">
           <input type="button" value="Back" (click)="prevStep()" />
           <input type="button" value="Next" (click)="nextStep()" [disabled]="!appointmentForm.valid" />
@@ -166,6 +173,12 @@
           <p>Group Size <small>(including yourself)</small>:</p>
           <p class="info">
             <strong>{{ appointmentForm.value.groupSize }}</strong>
+          </p>
+        </div>
+        <div class="confirm-info">
+          <p>Are you/with a PWD/Senior Citizen?</p>
+          <p class="info">
+            <strong>{{ appointmentForm.value.priority ? "Yes" : "No" }}</strong>
           </p>
         </div>
         <div class="step-control">

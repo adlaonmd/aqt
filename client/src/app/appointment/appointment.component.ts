@@ -54,6 +54,7 @@ export class AppointmentComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern(emailRegex)]],
       phoneNumber: ['', [Validators.required, Validators.pattern(phoneRegex)]],
       groupSize: ['', [Validators.required, Validators.min(1)]],
+      priority: [false, Validators.required],
     });
 
     this.getMonthList();
@@ -83,6 +84,10 @@ export class AppointmentComponent implements OnInit {
 
   get groupSize() {
     return this.appointmentForm.get('groupSize');
+  }
+
+  get priority() {
+    return this.appointmentForm.get('priority');
   }
 
   nextStep(): void {

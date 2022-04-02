@@ -14,7 +14,7 @@
 
   #content {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
 
     #go-back {
       background: #2400fd;
@@ -37,6 +37,12 @@
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 1em;
+      }
+
+      @media screen and (max-width: 468px) {
+        .input-field {
+          grid-template-columns: 1fr;
+        }
       }
 
       input[type="submit"] {

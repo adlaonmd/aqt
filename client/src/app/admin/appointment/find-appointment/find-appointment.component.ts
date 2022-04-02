@@ -22,8 +22,15 @@ export class FindAppointmentComponent implements OnInit {
   handleSubmit(): void {
     this.appointmentService
       .getAppointment(this.findAppointmentForm.value.appointment_id.toUpperCase())
-      .subscribe((res) => {
-        this.appointmentService.setAppointmentList(res);
+      .subscribe(
+        (res) => {
+          this.appointmentService.setAppointmentList([res]);
+        },
+        (err) => {
+          this.appointmentService.setAppointmentList([]);
+        }
+      )
+      .add(() => {
         this.findAppointment = true;
       });
   }

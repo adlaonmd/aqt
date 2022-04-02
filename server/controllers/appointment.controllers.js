@@ -24,10 +24,7 @@ const addAppointment = (req, res) => {
   Appointment.aggregate([
     {
       $match: {
-        $and: [
-          { $and: [{ $or: [{ firstName }, { email }, { phoneNumber }] }, { day }] },
-          { status: { $eq: Status.WAITING } },
-        ],
+        $and: [{ $and: [{ firstName }, { email }, { phoneNumber }] }, { day }, { status: { $eq: Status.WAITING } }],
       },
     },
   ])
@@ -57,6 +54,8 @@ const addAppointment = (req, res) => {
           for (let i = 0; i < result.schedule.length; i++) {
             if (result.schedule[i].time === time) {
               let newTableSize = Math.round(groupSize / result.persons);
+              let noOfTables = newTableSize;
+
               if (newTableSize === 0) newTableSize = 1;
 
               if (result.schedule[i].tables - newTableSize < 0) {
@@ -74,7 +73,7 @@ const addAppointment = (req, res) => {
               )
                 .then((result) => {
                   //Add the appointment in the database
-                  Appointment.create({ ...req.body, fullSchedule, status })
+                  Appointment.create({ ...req.body, fullSchedule, status, noOfTables })
                     .then((result) => {
                       //Get the last 6 characters of the ID and set it as appointment_id to be easily reference later
                       const appointment_id = result.id.slice(-6).toUpperCase();
@@ -136,7 +135,7 @@ const getAppointment = (req, res) => {
         return res.send(result[0]);
       }
 
-      return res.status(406).json("No appointment found");
+      return res.status(404).json("No appointment found");
     })
     .catch((error) => {
       console.error(error);

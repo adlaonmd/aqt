@@ -1,29 +1,53 @@
 <div class="appointment-item">
-    <div class="header">
-        <div>
-            <p>Time: <strong>{{ appointment.time }}</strong></p>
-            <p>Date: <strong>{{ appointment.month }} {{ appointment.day }}, {{ appointment.year }}</strong></p>
-        </div>
-        <p>ID: <strong>{{ appointment.appointment_id }}</strong></p>
+  <div class="header">
+    <div>
+      <p>
+        Time: <strong>{{ appointment.time }}</strong>
+      </p>
+      <p>
+        Date: <strong>{{ appointment.month }} {{ appointment.day }}, {{ appointment.year }}</strong>
+      </p>
     </div>
-    <div class="content">
-        <div class="info">
-            <div class="name">
-                <p>First Name: <strong>{{ appointment.firstName }}</strong></p>
-                <p>Last Name: <strong>{{ appointment.lastName }}</strong></p>
-            </div>
-            <div class="contact">
-                <p>Email: <strong>{{ appointment.email }}</strong></p>
-                <p>Phone Number: <strong>{{ appointment.phoneNumber }}</strong></p>
-            </div>
-        </div>
-        <p class="group-size">Group Size: <strong>{{ appointment.groupSize }}</strong></p>
+    <div>
+      <p>
+        ID: <strong>{{ appointment.appointment_id }}</strong>
+      </p>
+      <p>
+        Priority: <strong>{{ appointment.priority ? "Yes" : "No" }}</strong>
+      </p>
     </div>
-    <div class="footer">
-        <p class="status" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</p>
-        <div class="controls" *ngIf="appointment.status === 'WAITING'">
-            <button (click)="cancelAppointment()">Cancel</button>
-            <button (click)="acceptAppointment()">Arrived</button>
-        </div>
+  </div>
+  <div class="content">
+    <div class="info">
+      <div class="name">
+        <p>
+          First Name: <strong>{{ appointment.firstName }}</strong>
+        </p>
+        <p>
+          Last Name: <strong>{{ appointment.lastName }}</strong>
+        </p>
+      </div>
+      <div class="contact">
+        <p>
+          Email: <strong>{{ appointment.email }}</strong>
+        </p>
+        <p>
+          Phone Number: <strong>{{ appointment.phoneNumber }}</strong>
+        </p>
+      </div>
     </div>
+    <p class="group-size">
+      Group Size: <strong>{{ appointment.groupSize }}</strong>
+    </p>
+    <p class="no-of-tables">
+      No. of Tables: <strong>{{ appointment.noOfTables }}</strong>
+    </p>
+  </div>
+  <div class="footer">
+    <p class="status" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</p>
+    <div class="controls" *ngIf="appointment.status === 'WAITING'">
+      <button (click)="cancelAppointment()">Cancel</button>
+      <button (click)="acceptAppointment()">Arrived</button>
+    </div>
+  </div>
 </div>

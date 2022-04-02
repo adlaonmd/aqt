@@ -15,6 +15,8 @@ const appointmentSchema = new Schema(
     phoneNumber: String,
     groupSize: Number,
     status: String,
+    noOfTables: Number,
+    priority: Boolean,
   },
   { collection: "appointments" }
 );

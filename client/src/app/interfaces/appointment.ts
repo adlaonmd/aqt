@@ -12,4 +12,6 @@ export interface Appointment {
   status: string;
   fullSchedule: string;
   appointment_id: string;
+  noOfTables: number;
+  priority: boolean;
 }
